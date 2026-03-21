@@ -7,583 +7,665 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
 :root{
   --blue:#3182F6;
-  --gray-900:#111827;
-  --gray-800:#1f2937;
-  --gray-700:#374151;
-  --gray-600:#4b5563;
-  --gray-500:#6b7280;
-  --gray-400:#9ca3af;
-  --gray-300:#d1d5db;
-  --gray-200:#e5e7eb;
-  --gray-100:#f3f4f6;
-  --gray-50:#f9fafb;
-  --sidebar-w:300px;
+  --blue-dim:rgba(49,130,246,.08);
+  --ink:#0f172a;
+  --ink-2:#1e293b;
+  --ink-3:#334155;
+  --muted:#64748b;
+  --subtle:#94a3b8;
+  --line:#e2e8f0;
+  --surface:#f8fafc;
+  --white:#ffffff;
+  --sidebar-w:288px;
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
 }
+
 html{scroll-behavior:smooth}
 body{
-  font-family:'Pretendard Variable',Pretendard,sans-serif;
-  background:#f5f5f5;
-  color:var(--gray-800);
+  font-family:'Pretendard Variable',Pretendard,system-ui,sans-serif;
+  background:var(--surface);
+  color:var(--ink-2);
   font-size:14px;
-  line-height:1.6;
+  line-height:1.65;
   height:100vh;
   overflow:hidden;
   display:flex;
+  -webkit-font-smoothing:antialiased;
 }
 
-/* ── SIDEBAR ── */
+/* ────────────────────────────
+   SIDEBAR
+──────────────────────────── */
 .sidebar{
   width:var(--sidebar-w);
   min-width:var(--sidebar-w);
   height:100vh;
-  background:#fff;
-  border-right:1px solid var(--gray-200);
+  background:var(--white);
+  border-right:1px solid var(--line);
   display:flex;
   flex-direction:column;
   overflow:hidden;
 }
-.sidebar-top{
-  padding:24px 20px 16px;
-  border-bottom:1px solid var(--gray-100);
+
+.sidebar-brand{
+  padding:22px 20px 18px;
+  border-bottom:1px solid var(--line);
 }
-.profile-row{
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:14px;
+.brand-row{
+  display:flex;align-items:center;gap:11px;
+  margin-bottom:16px;
 }
 .avatar{
-  width:40px;height:40px;border-radius:50%;
-  background:var(--blue);
-  color:#fff;font-weight:800;font-size:16px;
+  width:38px;height:38px;
+  background:var(--ink);
+  color:var(--white);
+  font-weight:900;font-size:14px;letter-spacing:-.02em;
+  border-radius:10px;
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
 }
-.profile-name{font-size:15px;font-weight:700;color:var(--gray-900);}
-.profile-sub{font-size:11px;color:var(--gray-400);margin-top:1px;}
+.brand-name{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.02em}
+.brand-handle{font-size:11px;color:var(--subtle);margin-top:1px}
 
-.doc-label{
-  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--gray-400);margin-bottom:4px;
+.doc-eyebrow{
+  font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--subtle);margin-bottom:3px;
 }
 .doc-title{
-  font-size:16px;font-weight:800;color:var(--gray-900);line-height:1.3;
-  margin-bottom:2px;
+  font-size:17px;font-weight:800;color:var(--ink);
+  letter-spacing:-.03em;line-height:1.25;margin-bottom:2px;
 }
-.doc-meta{
-  font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--gray-400);margin-top:6px;
+.doc-edition{
+  display:inline-block;margin-top:7px;
+  font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--blue);
+  background:var(--blue-dim);
+  padding:2px 8px;border-radius:100px;
 }
 
-.sidebar-filter{
-  padding:12px 20px;
-  border-bottom:1px solid var(--gray-100);
+.sidebar-search{
+  padding:12px 16px;
+  border-bottom:1px solid var(--line);
 }
-.search-box{
+.search-input{
   width:100%;
-  padding:7px 12px;
-  font-size:13px;
-  font-family:inherit;
-  background:var(--gray-50);
-  border:1px solid var(--gray-200);
-  border-radius:6px;
-  color:var(--gray-700);
+  padding:7px 11px;
+  font-size:13px;font-family:inherit;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:7px;
+  color:var(--ink-2);
   outline:none;
-  margin-bottom:10px;
+  transition:border-color .15s, box-shadow .15s;
 }
-.search-box::placeholder{color:var(--gray-400)}
+.search-input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(49,130,246,.12);
+}
+.search-input::placeholder{color:var(--subtle)}
 
-.progress-row{
-  display:flex;align-items:center;gap:8px;
-  margin-bottom:8px;
+.progress-wrap{
+  display:flex;align-items:center;gap:9px;
+  margin-top:10px;
 }
-.progress-bar{
-  flex:1;height:3px;
-  background:var(--gray-200);
-  border-radius:100px;
-  overflow:hidden;
+.progress-track{
+  flex:1;height:2.5px;background:var(--line);border-radius:100px;overflow:hidden;
 }
 .progress-fill{
-  height:100%;background:var(--gray-900);
-  border-radius:100px;
-  transition:width .3s;
+  height:100%;background:var(--ink);border-radius:100px;
+  transition:width .4s var(--ease-out);
 }
-.progress-text{
-  font-size:11px;font-weight:600;color:var(--gray-400);
-  white-space:nowrap;
+.progress-label{
+  font-size:10.5px;font-weight:600;color:var(--subtle);
+  font-variant-numeric:tabular-nums;white-space:nowrap;
 }
 
 .sidebar-nav{
-  flex:1;overflow-y:auto;padding:8px 0;
-  scrollbar-width:thin;scrollbar-color:var(--gray-200) transparent;
+  flex:1;overflow-y:auto;padding:6px 0 16px;
+  scrollbar-width:thin;scrollbar-color:var(--line) transparent;
 }
-.sidebar-nav::-webkit-scrollbar{width:4px}
-.sidebar-nav::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:4px}
+.sidebar-nav::-webkit-scrollbar{width:3px}
+.sidebar-nav::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
 
 .nav-item{
   display:flex;align-items:center;
-  padding:8px 20px;
-  cursor:pointer;
+  gap:10px;padding:8px 16px 8px 20px;
   position:relative;
   text-decoration:none;
-  border-left:3px solid transparent;
-  transition:background .1s;
-  gap:10px;
+  cursor:pointer;
+  transition:background .12s;
 }
-.nav-item:hover{background:var(--gray-50)}
-.nav-item.active{
-  border-left-color:var(--gray-900);
-  background:var(--gray-50);
+.nav-item::before{
+  content:'';
+  position:absolute;left:0;top:20%;bottom:20%;
+  width:2.5px;border-radius:0 2px 2px 0;
+  background:var(--ink);
+  transform:scaleY(0);
+  transform-origin:center;
+  transition:transform .2s var(--ease-out);
 }
-.nav-item.active .nav-text{font-weight:700;color:var(--gray-900)}
+.nav-item:hover{background:var(--surface)}
+.nav-item.active{background:var(--surface)}
+.nav-item.active::before{transform:scaleY(1)}
+.nav-item.active .nav-text{font-weight:700;color:var(--ink)}
 .nav-num{
-  font-size:11px;font-weight:600;color:var(--gray-400);
-  width:18px;flex-shrink:0;text-align:right;
+  font-size:10.5px;font-weight:600;color:var(--subtle);
+  width:18px;text-align:right;flex-shrink:0;
+  font-variant-numeric:tabular-nums;
 }
-.nav-text{
-  font-size:13px;color:var(--gray-600);flex:1;
-  line-height:1.3;
-}
-.nav-check{
-  font-size:11px;color:var(--gray-300);flex-shrink:0;
-}
-.nav-item.active .nav-check{color:var(--gray-600)}
+.nav-text{font-size:13px;color:var(--muted);flex:1;line-height:1.3;transition:color .12s}
+.nav-item:hover .nav-text{color:var(--ink-2)}
+.nav-star{font-size:11px;color:var(--line);flex-shrink:0;transition:color .15s}
+.nav-item:hover .nav-star{color:var(--subtle)}
+.nav-item.active .nav-star{color:var(--subtle)}
 
-/* ── MAIN ── */
+/* ────────────────────────────
+   MAIN
+──────────────────────────── */
 .main{
   flex:1;
   height:100vh;
   overflow-y:auto;
-  background:#fff;
-  scrollbar-width:thin;scrollbar-color:var(--gray-200) transparent;
+  background:var(--white);
+  scrollbar-width:thin;scrollbar-color:var(--line) transparent;
 }
-.main::-webkit-scrollbar{width:6px}
-.main::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:4px}
+.main::-webkit-scrollbar{width:5px}
+.main::-webkit-scrollbar-thumb{background:var(--line);border-radius:5px}
 
 .main-inner{
-  max-width:860px;
-  padding:48px 56px 100px;
+  max-width:820px;
+  padding:52px 60px 120px;
 }
 
-/* ── HERO ── */
-.hero{margin-bottom:48px}
-.hero-edition{
-  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--gray-400);margin-bottom:16px;
+/* ────────────────────────────
+   HERO
+──────────────────────────── */
+.hero{margin-bottom:56px}
+.hero-eyebrow{
+  font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--subtle);margin-bottom:18px;
+  display:flex;align-items:center;gap:8px;
+}
+.hero-eyebrow::before{
+  content:'';display:inline-block;
+  width:20px;height:1.5px;background:var(--line);
 }
 .hero-title{
-  font-size:52px;font-weight:800;
-  line-height:1.1;letter-spacing:-.03em;
-  color:var(--gray-900);
-  margin-bottom:20px;
-}
-.hero-title span{color:var(--blue)}
-.hero-desc{
-  font-size:15px;color:var(--gray-600);
-  line-height:1.7;max-width:540px;
-  margin-bottom:32px;
-}
-
-/* ── STATS ── */
-.stats-row{
-  display:flex;
-  border:1px solid var(--gray-200);
-  border-radius:10px;
-  overflow:hidden;
-  margin-bottom:8px;
-}
-.stat-cell{
-  flex:1;
-  padding:18px 20px;
-  border-right:1px solid var(--gray-200);
-  text-align:center;
-}
-.stat-cell:last-child{border-right:none}
-.stat-num{
-  font-size:28px;font-weight:800;
-  color:var(--gray-900);letter-spacing:-.02em;
-  line-height:1;margin-bottom:6px;
-}
-.stat-label{
-  font-size:11px;color:var(--gray-400);font-weight:500;
-}
-
-/* ── SECTION ── */
-.section{
-  padding-top:56px;
-}
-.section-head{
+  font-size:58px;font-weight:900;
+  letter-spacing:-.04em;line-height:.95;
+  color:var(--ink);
   margin-bottom:24px;
 }
-.section-num-large{
-  font-size:13px;font-weight:700;color:var(--gray-300);
-  letter-spacing:.04em;margin-bottom:6px;
+.hero-desc{
+  font-size:15px;color:var(--muted);line-height:1.75;
+  max-width:480px;margin-bottom:36px;
+}
+
+/* Stats */
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;
+}
+.stat-cell{
+  padding:20px 18px;border-right:1px solid var(--line);
+  transition:background .15s;
+}
+.stat-cell:last-child{border-right:none}
+.stat-cell:hover{background:var(--surface)}
+.stat-num{
+  font-size:30px;font-weight:900;color:var(--ink);
+  letter-spacing:-.04em;line-height:1;margin-bottom:5px;
+  font-variant-numeric:tabular-nums;
+}
+.stat-unit{font-size:17px;font-weight:700;}
+.stat-label{font-size:11px;font-weight:500;color:var(--subtle);letter-spacing:.01em}
+
+/* ────────────────────────────
+   SECTION COMMON
+──────────────────────────── */
+.section{
+  padding-top:64px;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .5s var(--ease-out), transform .5s var(--ease-out);
+}
+.section.visible{opacity:1;transform:none}
+
+.section-head{margin-bottom:6px}
+.section-num{
+  font-size:11px;font-weight:700;letter-spacing:.08em;
+  color:var(--subtle);margin-bottom:8px;
+  font-variant-numeric:tabular-nums;
 }
 .section-title{
-  font-size:26px;font-weight:800;color:var(--gray-900);
-  letter-spacing:-.025em;line-height:1.2;
+  font-size:28px;font-weight:800;color:var(--ink);
+  letter-spacing:-.03em;line-height:1.15;
   display:flex;align-items:center;gap:10px;
+  flex-wrap:wrap;
+}
+.section-hr{
+  height:1px;background:var(--line);margin:20px 0 28px;
 }
 .level-badge{
-  font-size:11px;font-weight:700;
+  font-size:10.5px;font-weight:700;
   padding:3px 9px;border-radius:100px;
-  background:var(--gray-100);color:var(--gray-500);
+  background:var(--surface);color:var(--muted);
+  border:1px solid var(--line);
   letter-spacing:.03em;
 }
-.section-divider{
-  height:1px;background:var(--gray-100);margin-bottom:28px;
+.level-badge.key{
+  background:var(--blue-dim);color:var(--blue);border-color:transparent;
 }
 
-/* ── SUMMARY CARDS ── */
+/* ────────────────────────────
+   SUMMARY CARDS
+──────────────────────────── */
 .summary-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
-  margin-bottom:8px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
 }
 .summary-card{
-  border:1px solid var(--gray-200);border-radius:8px;padding:16px 18px;
+  border:1px solid var(--line);border-radius:10px;padding:18px;
+  transition:border-color .15s, transform .2s var(--ease-out);
 }
+.summary-card:hover{border-color:var(--subtle);transform:translateY(-1px)}
 .summary-card-label{
-  font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
-  color:var(--blue);margin-bottom:6px;
+  font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:7px;
 }
-.summary-card-text{
-  font-size:14px;font-weight:600;color:var(--gray-800);line-height:1.5;
-}
+.summary-card-text{font-size:14px;font-weight:600;color:var(--ink-2);line-height:1.55}
+.summary-card-text strong{color:var(--ink)}
 
-/* ── TABLE ── */
-.info-table{width:100%;border-collapse:collapse;font-size:14px;}
-.info-table th,.info-table td{
-  padding:11px 16px;
-  border-bottom:1px solid var(--gray-100);
-  text-align:left;vertical-align:top;
-}
+/* ────────────────────────────
+   INFO TABLE
+──────────────────────────── */
+.info-table{width:100%;border-collapse:collapse;font-size:14px}
+.info-table tr{border-bottom:1px solid var(--line);transition:background .12s}
+.info-table tr:last-child{border-bottom:none}
+.info-table tr:hover{background:var(--surface)}
+.info-table th,.info-table td{padding:12px 16px;text-align:left;vertical-align:top}
 .info-table th{
-  width:110px;font-weight:600;color:var(--gray-500);
-  background:var(--gray-50);white-space:nowrap;
+  width:105px;font-weight:600;font-size:13px;
+  color:var(--muted);white-space:nowrap;
 }
-.info-table tr:last-child th,.info-table tr:last-child td{border-bottom:none}
 
-/* ── PART BLOCK ── */
+/* ────────────────────────────
+   PART BLOCK
+──────────────────────────── */
 .part-block{
-  border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin-bottom:10px;
+  border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:10px;
+  transition:border-color .15s;
 }
+.part-block:hover{border-color:var(--subtle)}
 .part-header{
-  background:var(--gray-50);padding:11px 16px;
-  border-bottom:1px solid var(--gray-200);
-  display:flex;align-items:center;gap:10px;
+  background:var(--surface);padding:11px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
 }
 .part-badge{
-  font-size:10px;font-weight:700;
-  background:var(--gray-900);color:#fff;
-  padding:2px 8px;border-radius:100px;letter-spacing:.05em;
+  font-size:10px;font-weight:800;letter-spacing:.07em;
+  background:var(--ink);color:var(--white);
+  padding:2.5px 8px;border-radius:100px;
 }
-.part-title{font-size:14px;font-weight:700;color:var(--gray-800);}
-.part-sub{font-size:12px;color:var(--gray-400);margin-left:auto;white-space:nowrap;}
-.part-body{padding:14px 16px;display:flex;flex-direction:column;gap:7px;}
+.part-title{font-size:13.5px;font-weight:700;color:var(--ink-2)}
+.part-sub{font-size:12px;color:var(--subtle);margin-left:auto;white-space:nowrap}
+.part-body{padding:14px 16px;display:flex;flex-direction:column;gap:7px}
 .part-item{
-  display:flex;align-items:flex-start;gap:10px;
-  font-size:14px;color:var(--gray-600);line-height:1.5;
+  display:flex;align-items:flex-start;gap:11px;
+  font-size:13.5px;color:var(--muted);line-height:1.5;
 }
-.part-item::before{content:'—';color:var(--gray-300);flex-shrink:0;}
+.part-item::before{
+  content:'';display:inline-block;
+  width:4px;height:4px;border-radius:50%;
+  background:var(--subtle);flex-shrink:0;margin-top:7px;
+}
 
-/* ── TIMELINE ── */
-.timeline{display:flex;flex-direction:column;gap:0;position:relative;padding-left:28px;}
-.timeline::before{content:'';position:absolute;left:6px;top:10px;bottom:10px;width:1.5px;background:var(--gray-200);}
-.timeline-item{position:relative;padding:6px 0 6px 14px;}
+/* ────────────────────────────
+   TIMELINE
+──────────────────────────── */
+.timeline{position:relative;padding-left:32px;display:flex;flex-direction:column}
+.timeline::before{
+  content:'';position:absolute;left:7px;top:12px;bottom:12px;
+  width:1px;background:var(--line);
+}
+.timeline-item{position:relative;padding:5px 0 5px 14px;display:flex;align-items:baseline;gap:10px}
 .timeline-dot{
-  position:absolute;left:-28px;top:11px;
-  width:13px;height:13px;border-radius:50%;
-  background:#fff;border:2px solid var(--gray-300);
+  position:absolute;left:-32px;top:10px;
+  width:15px;height:15px;border-radius:50%;
+  background:var(--white);border:1.5px solid var(--line);
+  transition:border-color .15s,background .15s;
 }
-.timeline-dot.active{border-color:var(--gray-900);background:var(--gray-900)}
-.timeline-time{font-size:12px;font-weight:700;color:var(--gray-900);margin-right:10px;font-variant-numeric:tabular-nums;}
-.timeline-text{font-size:14px;color:var(--gray-600);}
-.timeline-note{display:block;font-size:12px;color:var(--gray-400);margin-top:2px;}
+.timeline-dot.active{border-color:var(--ink);background:var(--ink)}
+.timeline-time{
+  font-size:12px;font-weight:700;color:var(--ink);
+  white-space:nowrap;font-variant-numeric:tabular-nums;
+  flex-shrink:0;
+}
+.timeline-text{font-size:13.5px;color:var(--muted);line-height:1.5}
+.timeline-note{
+  display:block;font-size:12px;color:var(--subtle);margin-top:2px;
+}
 
-/* ── SHOT GRID ── */
-.shot-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+/* ────────────────────────────
+   SHOT CARDS
+──────────────────────────── */
+.shot-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .shot-card{
-  border:1px solid var(--gray-200);border-radius:8px;padding:16px 18px;
+  border:1px solid var(--line);border-radius:10px;padding:18px;
+  transition:border-color .18s, transform .22s var(--ease-out), box-shadow .22s;
+  cursor:default;
 }
-.shot-name{font-size:14px;font-weight:700;color:var(--gray-900);margin-bottom:4px;}
-.shot-desc{font-size:13px;color:var(--gray-500);margin-bottom:10px;line-height:1.4;}
-.shot-ingredient{display:flex;flex-wrap:wrap;gap:5px;}
+.shot-card:hover{
+  border-color:var(--subtle);
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px -8px rgba(15,23,42,.08);
+}
+.shot-name{font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.02em;margin-bottom:4px}
+.shot-desc{font-size:12.5px;color:var(--subtle);margin-bottom:12px;line-height:1.45}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
 .tag{
-  font-size:11px;font-weight:500;
-  background:var(--gray-100);color:var(--gray-600);
-  padding:2px 8px;border-radius:100px;
+  font-size:11px;font-weight:600;
+  background:var(--surface);color:var(--muted);
+  border:1px solid var(--line);
+  padding:2.5px 9px;border-radius:100px;
 }
-.shot-card.lemon{background:var(--gray-50);border-color:var(--gray-200);}
 .shot-card.lemon .shot-name{color:var(--blue)}
+.shot-card.lemon .tag{background:var(--blue-dim);color:var(--blue);border-color:transparent}
 
-.shot-notice{
-  margin-top:14px;border:1px solid var(--gray-200);
-  border-radius:8px;padding:14px 16px;
-  font-size:13px;color:var(--gray-500);line-height:1.6;
-  background:var(--gray-50);
+.shot-note{
+  margin-top:14px;
+  border-top:1px solid var(--line);
+  padding-top:14px;
+  font-size:13px;color:var(--muted);line-height:1.65;
 }
-.shot-notice strong{color:var(--gray-800);font-weight:700;}
+.shot-note strong{color:var(--ink-2);font-weight:700}
 
-/* ── STEPS ── */
-.steps{display:flex;flex-direction:column;gap:10px;}
-.step{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:var(--gray-700);}
+/* ────────────────────────────
+   STEPS
+──────────────────────────── */
+.steps{display:flex;flex-direction:column;gap:10px}
+.step{display:flex;align-items:flex-start;gap:13px}
 .step-num{
-  width:22px;height:22px;border-radius:50%;
-  background:var(--gray-900);color:#fff;
-  font-size:11px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
+  width:23px;height:23px;border-radius:50%;
+  background:var(--ink);color:var(--white);
+  font-size:11px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+  font-variant-numeric:tabular-nums;
 }
-.step-text{line-height:1.5;}
-.step-text strong{color:var(--gray-900);font-weight:700;}
+.step-text{font-size:13.5px;color:var(--muted);line-height:1.55}
+.step-text strong{color:var(--ink-2);font-weight:700}
 
-/* ── SCRIPT BOX ── */
-.script-label{
-  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--gray-400);margin-bottom:8px;
+/* ────────────────────────────
+   SCRIPT BOX
+──────────────────────────── */
+.eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--subtle);margin-bottom:10px;
 }
 .script-box{
-  background:var(--gray-50);border:1px solid var(--gray-200);
-  border-left:3px solid var(--gray-900);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-left:3px solid var(--ink);
   border-radius:0 8px 8px 0;
-  padding:16px 18px;font-size:14px;color:var(--gray-700);line-height:1.7;
+  padding:16px 20px;
+  font-size:14px;color:var(--ink-3);
+  line-height:1.75;
+  font-style:italic;
 }
 
-/* ── WARN / INFO BOX ── */
-.warn-box{
-  background:#fffbeb;border:1px solid #fde68a;border-radius:8px;
-  padding:13px 16px;font-size:13px;color:#92400e;margin-top:14px;line-height:1.6;
+/* ────────────────────────────
+   CALLOUTS
+──────────────────────────── */
+.callout{
+  border-radius:8px;padding:13px 16px;
+  font-size:13.5px;line-height:1.65;margin-top:16px;
 }
-.warn-box strong{font-weight:700;}
-.info-box{
-  background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;
-  padding:13px 16px;font-size:13px;color:var(--gray-500);margin-top:14px;line-height:1.6;
+.callout.warn{
+  background:#fffbeb;border:1px solid #fde68a;color:#78350f;
 }
+.callout.info{
+  background:var(--surface);border:1px solid var(--line);color:var(--muted);
+}
+.callout strong{font-weight:700}
+.callout.warn strong{color:#92400e}
 
-/* ── FAQ ── */
-.faq-list{
-  border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;
-}
-.faq-item{padding:14px 18px;border-bottom:1px solid var(--gray-100);}
+/* ────────────────────────────
+   FAQ — ACCORDION
+──────────────────────────── */
+.faq-list{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.faq-item{border-bottom:1px solid var(--line)}
 .faq-item:last-child{border-bottom:none}
 .faq-q{
-  font-size:14px;font-weight:700;color:var(--gray-900);
-  margin-bottom:6px;display:flex;gap:10px;align-items:flex-start;
+  display:flex;align-items:center;gap:11px;
+  padding:14px 18px;cursor:pointer;
+  transition:background .12s;
+  user-select:none;
 }
-.faq-q::before{
-  content:'Q';font-size:10px;font-weight:700;color:#fff;
-  background:var(--gray-900);padding:1px 6px;border-radius:4px;
-  flex-shrink:0;margin-top:2px;
+.faq-q:hover{background:var(--surface)}
+.faq-q-badge{
+  font-size:10px;font-weight:800;color:var(--white);
+  background:var(--ink);padding:1.5px 6px;border-radius:4px;flex-shrink:0;
 }
-.faq-a{font-size:13px;color:var(--gray-500);line-height:1.6;padding-left:30px;}
+.faq-q-text{font-size:14px;font-weight:700;color:var(--ink);flex:1}
+.faq-arrow{
+  font-size:12px;color:var(--subtle);flex-shrink:0;
+  transition:transform .2s var(--ease-out);
+}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{
+  font-size:13.5px;color:var(--muted);line-height:1.7;
+  padding:0 18px;
+  max-height:0;overflow:hidden;
+  transition:max-height .3s var(--ease-out), padding .3s var(--ease-out);
+}
+.faq-item.open .faq-a{max-height:200px;padding:0 18px 14px}
+.faq-a strong{color:var(--ink-2);font-weight:700}
 
-/* ── SITUATION TABLE ── */
-.situation-table{width:100%;border-collapse:collapse;font-size:14px;}
-.situation-table th,.situation-table td{
-  padding:11px 16px;border-bottom:1px solid var(--gray-100);
-  text-align:left;vertical-align:top;
-}
-.situation-table th{font-weight:600;color:var(--gray-500);background:var(--gray-50);white-space:nowrap;}
-.situation-table tr:last-child th,.situation-table tr:last-child td{border-bottom:none}
-.critical{color:#dc2626;font-weight:700;}
+/* ────────────────────────────
+   SITUATION TABLE
+──────────────────────────── */
+.sit-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.sit-table tr{border-bottom:1px solid var(--line);transition:background .12s}
+.sit-table tr:last-child{border-bottom:none}
+.sit-table tr:hover{background:var(--surface)}
+.sit-table th,.sit-table td{padding:12px 16px;text-align:left;vertical-align:top}
+.sit-table th{font-weight:600;color:var(--muted);font-size:13px;white-space:nowrap}
+.sit-table thead tr{border-bottom:1px solid var(--line);background:var(--surface)}
+.critical{color:#dc2626;font-weight:700}
 
-/* ── RULE LIST ── */
-.rule-list{display:flex;flex-direction:column;gap:8px;}
-.rule-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--gray-600);line-height:1.5;}
+/* ────────────────────────────
+   RULE LIST
+──────────────────────────── */
+.rules-group{display:flex;flex-direction:column;gap:1px}
+.rule-row{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+  font-size:13.5px;color:var(--muted);line-height:1.5;
+}
+.rule-row:last-child{border-bottom:none}
 .rule-icon{
-  width:20px;height:20px;border-radius:4px;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;margin-top:1px;font-size:11px;font-weight:700;
+  width:20px;height:20px;border-radius:5px;
+  font-size:10px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
 }
-.rule-icon.ok{background:#dcfce7;color:#16a34a;}
-.rule-icon.no{background:#fee2e2;color:#dc2626;}
+.rule-icon.ok{background:#dcfce7;color:#15803d}
+.rule-icon.no{background:#fee2e2;color:#dc2626}
+.rule-icon.warn{background:#fef3c7;color:#d97706}
 
-/* ── CONTACT ── */
-.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+/* ────────────────────────────
+   CONTACT GRID
+──────────────────────────── */
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .contact-card{
-  background:var(--gray-50);border:1px solid var(--gray-200);
-  border-radius:8px;padding:16px 18px;
+  border:1px solid var(--line);border-radius:10px;padding:18px;
+  transition:border-color .15s;
 }
-.contact-role{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-400);margin-bottom:5px;}
-.contact-name{font-size:14px;font-weight:700;color:var(--gray-900);margin-bottom:3px;}
-.contact-num{font-size:16px;font-weight:700;color:var(--gray-900);}
-.placeholder{color:var(--gray-300);font-style:italic;}
+.contact-card:hover{border-color:var(--subtle)}
+.contact-role{
+  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--subtle);margin-bottom:5px;
+}
+.contact-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.contact-num{font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.placeholder{color:var(--line);font-style:italic}
 
-/* ── MOBILE NAV ── */
-.mobile-nav{display:none;}
+/* ────────────────────────────
+   SUBSECTION LABEL
+──────────────────────────── */
+.sub-label{
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--subtle);margin-bottom:14px;
+}
 
-/* ── PRINT ── */
+/* ────────────────────────────
+   MOBILE NAV
+──────────────────────────── */
+.mobile-nav{display:none}
+.mobile-header{display:none}
+
+/* ────────────────────────────
+   PRINT
+──────────────────────────── */
 @media print{
-  body{display:block;overflow:auto;height:auto;}
+  body{display:block;overflow:auto;height:auto}
   .sidebar,.mobile-nav{display:none!important}
-  .main{height:auto;overflow:visible;}
-  .main-inner{padding:20px 24px;max-width:100%;}
-  .section{page-break-inside:avoid;}
+  .main{height:auto;overflow:visible}
+  .main-inner{padding:20px 24px;max-width:100%}
+  .section{opacity:1;transform:none;page-break-inside:avoid}
   .shot-grid,.summary-grid,.contact-grid{grid-template-columns:repeat(2,1fr)}
 }
 
-/* ── RESPONSIVE ── */
+/* ────────────────────────────
+   RESPONSIVE
+──────────────────────────── */
 @media(max-width:768px){
-  body{flex-direction:column;overflow:auto;height:auto;}
-  .sidebar{display:none;}
-  .main{height:auto;overflow:visible;}
+  body{flex-direction:column;overflow:auto;height:auto}
+  .sidebar{display:none}
+  .main{height:auto;overflow:visible}
+  .mobile-header{
+    display:flex;align-items:center;gap:11px;
+    padding:18px 18px 16px;
+    background:var(--white);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:10;
+  }
   .mobile-nav{
-    display:flex;position:sticky;top:0;z-index:100;
-    background:#fff;border-bottom:1px solid var(--gray-200);
+    display:flex;position:sticky;top:65px;z-index:9;
+    background:var(--white);border-bottom:1px solid var(--line);
     padding:0 16px;overflow-x:auto;scrollbar-width:none;
-    -webkit-overflow-scrolling:touch;gap:0;
+    -webkit-overflow-scrolling:touch;
   }
   .mobile-nav::-webkit-scrollbar{display:none}
   .mobile-nav a{
-    flex-shrink:0;padding:12px 12px;font-size:13px;font-weight:500;
-    color:var(--gray-400);text-decoration:none;white-space:nowrap;
+    flex-shrink:0;padding:11px 12px;font-size:13px;font-weight:500;
+    color:var(--subtle);text-decoration:none;white-space:nowrap;
     border-bottom:2px solid transparent;
+    transition:color .12s,border-color .12s;
   }
-  .mobile-nav a:hover{color:var(--gray-900);border-color:var(--gray-900)}
-  .mobile-header{
-    display:block;padding:24px 20px 0;background:#fff;
-    border-bottom:1px solid var(--gray-100);
-  }
-  .main-inner{padding:0 20px 60px;}
-  .hero{padding-top:24px;}
-  .hero-title{font-size:32px;}
-  .stats-row{flex-wrap:wrap;}
-  .stat-cell{min-width:calc(33% - 1px);}
-  .summary-grid{grid-template-columns:1fr;}
-  .shot-grid{grid-template-columns:1fr;}
-  .contact-grid{grid-template-columns:1fr;}
-  .situation-table th{width:90px;}
-  .main-inner{padding:0 20px 60px;}
-}
-@media(min-width:769px){
-  .mobile-header{display:none}
+  .mobile-nav a:hover{color:var(--ink);border-color:var(--ink)}
+  .main-inner{padding:28px 20px 72px}
+  .hero-title{font-size:38px}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .stat-cell:nth-child(2){border-right:none}
+  .stat-cell:nth-child(3){border-top:1px solid var(--line)}
+  .stat-cell:nth-child(4){border-top:1px solid var(--line);border-right:none}
+  .summary-grid{grid-template-columns:1fr}
+  .shot-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
+<!-- ── SIDEBAR ── -->
 <aside class="sidebar">
-  <div class="sidebar-top">
-    <div class="profile-row">
+  <div class="sidebar-brand">
+    <div class="brand-row">
       <div class="avatar">V</div>
       <div>
-        <div class="profile-name">VRINK 크루</div>
-        <div class="profile-sub">vrink.official</div>
+        <div class="brand-name">VRINK 크루</div>
+        <div class="brand-handle">vrink.official</div>
       </div>
     </div>
-    <div class="doc-label">CREW GUIDE</div>
+    <div class="doc-eyebrow">Crew Guide</div>
     <div class="doc-title">크루 매뉴얼<br>2026</div>
-    <div class="doc-meta">스포엑스 에디션</div>
+    <div class="doc-edition">스포엑스 에디션</div>
   </div>
 
-  <div class="sidebar-filter">
-    <input class="search-box" type="text" placeholder="섹션 검색..." id="searchInput" oninput="filterNav(this.value)">
-    <div class="progress-row">
-      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:8%"></div></div>
-      <span class="progress-text" id="progressText">01 / 12</span>
+  <div class="sidebar-search">
+    <input class="search-input" type="text" placeholder="섹션 검색..." id="searchInput" oninput="filterNav(this.value)">
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:8%"></div></div>
+      <span class="progress-label" id="progressText">01 / 12</span>
     </div>
   </div>
 
   <nav class="sidebar-nav" id="sidebarNav">
     <a class="nav-item active" href="#overview" onclick="setActive(this)">
-      <span class="nav-num">01</span>
-      <span class="nav-text">한눈에 보기</span>
-      <span class="nav-check">✓</span>
+      <span class="nav-num">01</span><span class="nav-text">한눈에 보기</span><span class="nav-star">✓</span>
     </a>
     <a class="nav-item" href="#work" onclick="setActive(this)">
-      <span class="nav-num">02</span>
-      <span class="nav-text">근무 조건</span>
-      <span class="nav-check">☆</span>
+      <span class="nav-num">02</span><span class="nav-text">근무 조건</span><span class="nav-star">☆</span>
     </a>
     <a class="nav-item" href="#schedule" onclick="setActive(this)">
-      <span class="nav-num">03</span>
-      <span class="nav-text">전체 일정</span>
-      <span class="nav-check">☆</span>
+      <span class="nav-num">03</span><span class="nav-text">전체 일정</span><span class="nav-star">☆</span>
     </a>
     <a class="nav-item" href="#timeline" onclick="setActive(this)">
-      <span class="nav-num">04</span>
-      <span class="nav-text">하루 동선</span>
-      <span class="nav-check">☆</span>
+      <span class="nav-num">04</span><span class="nav-text">하루 동선</span><span class="nav-star">☆</span>
     </a>
     <a class="nav-item" href="#drinks" onclick="setActive(this)">
-      <span class="nav-num">05</span>
-      <span class="nav-text">음료 6종 소개</span>
-      <span class="nav-check">☆</span>
+      <span class="nav-num">05</span><span class="nav-text">음료 6종 소개</span><span class="nav-star">☆</span>
     </a>
     <a class="nav-item" href="#guide" onclick="setActive(this)">
-      <span class="nav-num">06</span>
-      <span class="nav-text">시음 가이드</span>
-      <span class="nav-check">☆</span>
+      <span class="nav-num">06</span><span class="nav-text">시음 가이드</span><span class="nav-star">☆</span>
     </a>
     <a class="nav-item" href="#signup" onclick="setActive(this)">
-      <span class="nav-num">07</span>
-      <span class="nav-text">회원 등록 플로우</span>
-      <span class="nav-check">☆</span>
+      <span class="nav-num">07</span><span class="nav-text">회원 등록 플로우</span><span class="nav-star">☆</span>
     </a>
     <a class="nav-item" href="#visit" onclick="setActive(this)">
-      <span class="nav-num">08</span>
-      <span class="nav-text">거점 방문 가이드</span>
-      <span class="nav-check">☆</span>
+      <span class="nav-num">08</span><span class="nav-text">거점 방문 가이드</span><span class="nav-star">☆</span>
     </a>
     <a class="nav-item" href="#b2b" onclick="setActive(this)">
-      <span class="nav-num">09</span>
-      <span class="nav-text">B2B 문의 대응</span>
-      <span class="nav-check">☆</span>
+      <span class="nav-num">09</span><span class="nav-text">B2B 문의 대응</span><span class="nav-star">☆</span>
     </a>
     <a class="nav-item" href="#faq" onclick="setActive(this)">
-      <span class="nav-num">10</span>
-      <span class="nav-text">자주 묻는 질문</span>
-      <span class="nav-check">☆</span>
+      <span class="nav-num">10</span><span class="nav-text">자주 묻는 질문</span><span class="nav-star">☆</span>
     </a>
     <a class="nav-item" href="#situation" onclick="setActive(this)">
-      <span class="nav-num">11</span>
-      <span class="nav-text">상황별 대처</span>
-      <span class="nav-check">☆</span>
+      <span class="nav-num">11</span><span class="nav-text">상황별 대처</span><span class="nav-star">☆</span>
     </a>
     <a class="nav-item" href="#rules" onclick="setActive(this)">
-      <span class="nav-num">12</span>
-      <span class="nav-text">행동 지침 &amp; 연락처</span>
-      <span class="nav-check">☆</span>
+      <span class="nav-num">12</span><span class="nav-text">행동 지침 &amp; 연락처</span><span class="nav-star">☆</span>
     </a>
   </nav>
 </aside>
 
-<!-- MOBILE HEADER -->
-<div class="mobile-header">
-  <div style="display:flex;align-items:center;gap:10px;padding-bottom:16px;">
-    <div class="avatar" style="width:32px;height:32px;font-size:13px;border-radius:8px;">V</div>
-    <div>
-      <div style="font-size:15px;font-weight:800;color:var(--gray-900);">VRINK 크루 매뉴얼</div>
-      <div style="font-size:11px;color:var(--gray-400);">스포엑스 2026 에디션</div>
-    </div>
+<!-- ── MOBILE ── -->
+<header class="mobile-header">
+  <div class="avatar" style="width:32px;height:32px;font-size:12px;border-radius:8px;">V</div>
+  <div>
+    <div style="font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.025em;">VRINK 크루 매뉴얼</div>
+    <div style="font-size:11px;color:var(--subtle);">스포엑스 2026 에디션</div>
   </div>
-</div>
-
-<!-- MOBILE NAV -->
+</header>
 <nav class="mobile-nav">
-  <a href="#overview">한눈에</a>
-  <a href="#work">근무조건</a>
-  <a href="#schedule">일정</a>
-  <a href="#timeline">하루동선</a>
-  <a href="#drinks">음료</a>
-  <a href="#guide">시음안내</a>
-  <a href="#signup">회원등록</a>
-  <a href="#visit">거점방문</a>
-  <a href="#b2b">B2B</a>
-  <a href="#faq">FAQ</a>
-  <a href="#situation">상황대처</a>
-  <a href="#rules">행동지침</a>
+  <a href="#overview">한눈에</a><a href="#work">근무조건</a><a href="#schedule">일정</a>
+  <a href="#timeline">하루동선</a><a href="#drinks">음료</a><a href="#guide">시음안내</a>
+  <a href="#signup">회원등록</a><a href="#visit">거점방문</a><a href="#b2b">B2B</a>
+  <a href="#faq">FAQ</a><a href="#situation">상황대처</a><a href="#rules">행동지침</a>
 </nav>
 
-<!-- MAIN -->
+<!-- ── MAIN ── -->
 <main class="main" id="mainScroll">
   <div class="main-inner">
 
     <!-- HERO -->
     <div class="hero">
-      <div class="hero-edition">2026 Edition — 스포엑스 &amp; 거점 방문</div>
+      <div class="hero-eyebrow">2026 Edition &nbsp;—&nbsp; 스포엑스 &amp; 거점 방문</div>
       <div class="hero-title">VRINK<br>크루 가이드</div>
-      <div class="hero-desc">처음 일하는 크루도 한 번 읽으면 바로 현장 투입 가능. 시음 안내부터 앱 가입 유도, 긴급 상황 대처까지 — 모든 것이 여기 있습니다.</div>
+      <div class="hero-desc">처음 일하는 크루도 한 번 읽으면 현장 투입 가능. 시음 안내부터 앱 가입 유도, 긴급 상황 대처까지 모든 것이 여기 있습니다.</div>
       <div class="stats-row">
         <div class="stat-cell">
           <div class="stat-num">12</div>
@@ -598,19 +680,19 @@ body{
           <div class="stat-label">박람회 일정</div>
         </div>
         <div class="stat-cell">
-          <div class="stat-num">20<span style="font-size:18px">만</span></div>
+          <div class="stat-num">20<span class="stat-unit">만</span></div>
           <div class="stat-label">일급</div>
         </div>
       </div>
     </div>
 
-    <!-- 01. 한눈에 보기 -->
+    <!-- 01 -->
     <section class="section" id="overview">
       <div class="section-head">
-        <div class="section-num-large">01</div>
-        <div class="section-title">한눈에 보기 <span class="level-badge">필독</span></div>
+        <div class="section-num">01</div>
+        <div class="section-title">한눈에 보기 <span class="level-badge key">필독</span></div>
       </div>
-      <div class="section-divider"></div>
+      <div class="section-hr"></div>
       <div class="summary-grid">
         <div class="summary-card">
           <div class="summary-card-label">할 일</div>
@@ -627,30 +709,30 @@ body{
       </div>
     </section>
 
-    <!-- 02. 근무 조건 -->
+    <!-- 02 -->
     <section class="section" id="work">
       <div class="section-head">
-        <div class="section-num-large">02</div>
+        <div class="section-num">02</div>
         <div class="section-title">근무 조건</div>
       </div>
-      <div class="section-divider"></div>
+      <div class="section-hr"></div>
       <table class="info-table">
         <tr><th>일급</th><td><strong>20만원</strong></td></tr>
         <tr><th>교통비</th><td>별도 지원 없음</td></tr>
         <tr><th>정산</th><td>박람회 종료 후 총액 일괄 지급</td></tr>
         <tr><th>근무시간</th><td>목~토 10~18시 / 일 10~16시</td></tr>
-        <tr><th>복장</th><td>VRINK 유니폼 + 명찰 <span style="color:var(--gray-400)">(지급)</span></td></tr>
+        <tr><th>복장</th><td>VRINK 유니폼 + 명찰 <span style="color:var(--subtle)">(지급)</span></td></tr>
         <tr><th>준비물</th><td>편한 신발, 개인 물병</td></tr>
       </table>
     </section>
 
-    <!-- 03. 전체 일정 -->
+    <!-- 03 -->
     <section class="section" id="schedule">
       <div class="section-head">
-        <div class="section-num-large">03</div>
+        <div class="section-num">03</div>
         <div class="section-title">전체 일정</div>
       </div>
-      <div class="section-divider"></div>
+      <div class="section-hr"></div>
       <div class="part-block">
         <div class="part-header">
           <span class="part-badge">PART 1</span>
@@ -677,13 +759,13 @@ body{
       </div>
     </section>
 
-    <!-- 04. 하루 동선 -->
+    <!-- 04 -->
     <section class="section" id="timeline">
       <div class="section-head">
-        <div class="section-num-large">04</div>
+        <div class="section-num">04</div>
         <div class="section-title">하루 동선</div>
       </div>
-      <div class="section-divider"></div>
+      <div class="section-hr"></div>
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-dot active"></div>
@@ -717,193 +799,202 @@ body{
       </div>
     </section>
 
-    <!-- 05. 음료 6종 -->
+    <!-- 05 -->
     <section class="section" id="drinks">
       <div class="section-head">
-        <div class="section-num-large">05</div>
-        <div class="section-title">음료 6종 소개 <span class="level-badge">★ 핵심</span></div>
+        <div class="section-num">05</div>
+        <div class="section-title">음료 6종 소개 <span class="level-badge key">핵심</span></div>
       </div>
-      <div class="section-divider"></div>
+      <div class="section-hr"></div>
       <div class="shot-grid">
         <div class="shot-card">
           <div class="shot-name">부스터 샷</div>
           <div class="shot-desc">지친 몸을 깨우고 싶다면</div>
-          <div class="shot-ingredient">
-            <span class="tag">타우린</span><span class="tag">카페인</span>
-          </div>
+          <div class="tags"><span class="tag">타우린</span><span class="tag">카페인</span></div>
         </div>
         <div class="shot-card">
           <div class="shot-name">커팅 샷</div>
           <div class="shot-desc">지방 관리를 한다면</div>
-          <div class="shot-ingredient">
-            <span class="tag">L-카르니틴</span><span class="tag">녹차추출물</span>
-          </div>
+          <div class="tags"><span class="tag">L-카르니틴</span><span class="tag">녹차추출물</span></div>
         </div>
         <div class="shot-card">
           <div class="shot-name">비타민 샷</div>
           <div class="shot-desc">하루 비타민을 채우고 싶다면</div>
-          <div class="shot-ingredient">
-            <span class="tag">비타민B</span><span class="tag">비타민C</span>
-          </div>
+          <div class="tags"><span class="tag">비타민B</span><span class="tag">비타민C</span></div>
         </div>
         <div class="shot-card">
           <div class="shot-name">릴렉스 샷</div>
           <div class="shot-desc">긴장을 완화하고 싶다면</div>
-          <div class="shot-ingredient">
-            <span class="tag">L-테아닌</span><span class="tag">타우린</span>
-          </div>
+          <div class="tags"><span class="tag">L-테아닌</span><span class="tag">타우린</span></div>
         </div>
         <div class="shot-card">
           <div class="shot-name">아미노 샷</div>
           <div class="shot-desc">근육 운동을 한다면</div>
-          <div class="shot-ingredient">
-            <span class="tag">필수 아미노산 9종</span><span class="tag">타우린</span>
-          </div>
+          <div class="tags"><span class="tag">필수 아미노산 9종</span><span class="tag">타우린</span></div>
         </div>
         <div class="shot-card lemon">
           <div class="shot-name">레몬 수</div>
           <div class="shot-desc">상쾌하게 한 잔</div>
-          <div class="shot-ingredient">
-            <span class="tag">레몬</span><span class="tag">단독 메뉴</span>
-          </div>
+          <div class="tags"><span class="tag">레몬</span><span class="tag">단독 메뉴</span></div>
         </div>
       </div>
-      <div class="shot-notice">
+      <div class="shot-note">
         <strong>조합 규칙</strong> — 최대 3가지 샷 조합 가능. 레몬 수는 단독으로만 제공.<br>
         맛·농도·탄산은 고객이 직접 조절할 수 있어요.
       </div>
     </section>
 
-    <!-- 06. 시음 가이드 -->
+    <!-- 06 -->
     <section class="section" id="guide">
       <div class="section-head">
-        <div class="section-num-large">06</div>
+        <div class="section-num">06</div>
         <div class="section-title">제품 설명 &amp; 시음 가이드</div>
       </div>
-      <div class="section-divider"></div>
-      <div class="script-label">30초 스크립트</div>
-      <div class="script-box">
-        "안녕하세요! VRINK 음료 무료 시음 이벤트예요. 운동하시는 분들을 위한 기능성 샷 음료인데요, 원하시는 효능을 직접 골라서 만들어드려요. 한 잔 드셔보시겠어요?"
-      </div>
-      <div style="margin:20px 0 10px;font-size:14px;font-weight:700;color:var(--gray-800);">디스펜서 조작 순서</div>
+      <div class="section-hr"></div>
+      <div class="eyebrow">30초 스크립트</div>
+      <div class="script-box">"안녕하세요! VRINK 음료 무료 시음 이벤트예요. 운동하시는 분들을 위한 기능성 샷 음료인데요, 원하시는 효능을 직접 골라서 만들어드려요. 한 잔 드셔보시겠어요?"</div>
+
+      <div class="sub-label" style="margin-top:28px">디스펜서 조작 순서</div>
       <div class="steps">
         <div class="step"><div class="step-num">1</div><div class="step-text"><strong>시작하기</strong> 버튼 터치</div></div>
         <div class="step"><div class="step-num">2</div><div class="step-text"><strong>기능 선택</strong> — 원하는 샷 고르기</div></div>
         <div class="step"><div class="step-num">3</div><div class="step-text"><strong>옵션 설정</strong> — 맛·농도·탄산 조절</div></div>
         <div class="step"><div class="step-num">4</div><div class="step-text"><strong>출수</strong> — 5~10초 대기</div></div>
       </div>
-      <div class="warn-box"><strong>기기 이상 시:</strong> 전원 재시작 → 그래도 안 되면 <strong>매니저 즉시 연락</strong></div>
+      <div class="callout warn"><strong>기기 이상 시:</strong> 전원 재시작 → 그래도 안 되면 <strong>매니저 즉시 연락</strong></div>
     </section>
 
-    <!-- 07. 회원 등록 -->
+    <!-- 07 -->
     <section class="section" id="signup">
       <div class="section-head">
-        <div class="section-num-large">07</div>
+        <div class="section-num">07</div>
         <div class="section-title">회원 등록 플로우</div>
       </div>
-      <div class="section-divider"></div>
+      <div class="section-hr"></div>
       <div class="steps">
         <div class="step"><div class="step-num">1</div><div class="step-text"><strong>QR 스캔</strong> — 스탠드 QR 또는 직접 보여주기</div></div>
         <div class="step"><div class="step-num">2</div><div class="step-text"><strong>앱 다운로드</strong> — 스토어에서 VRINK 검색</div></div>
         <div class="step"><div class="step-num">3</div><div class="step-text"><strong>가입 완료</strong> — 가입 화면까지 안내</div></div>
         <div class="step"><div class="step-num">4</div><div class="step-text"><strong>연락처 수집</strong> — 명단 기록지에 기재</div></div>
       </div>
-      <div class="info-box">가입 거부 시: <em>"나중에 편하실 때 가입해 보세요."</em><br><strong>절대 강요하지 마세요.</strong></div>
+      <div class="callout info">거부 시: <em>"나중에 편하실 때 가입해 보세요."</em><br><strong>절대 강요하지 마세요.</strong></div>
     </section>
 
-    <!-- 08. 거점 방문 -->
+    <!-- 08 -->
     <section class="section" id="visit">
       <div class="section-head">
-        <div class="section-num-large">08</div>
+        <div class="section-num">08</div>
         <div class="section-title">거점 방문 가이드</div>
       </div>
-      <div class="section-divider"></div>
-      <div style="font-size:13px;font-weight:700;color:var(--gray-500);margin-bottom:12px;letter-spacing:.04em;text-transform:uppercase;">방문 순서</div>
-      <div class="steps" style="margin-bottom:24px;">
+      <div class="section-hr"></div>
+      <div class="sub-label">방문 순서</div>
+      <div class="steps" style="margin-bottom:28px">
         <div class="step"><div class="step-num">1</div><div class="step-text"><strong>도착 인사</strong> — 담당자 확인 후 소개</div></div>
         <div class="step"><div class="step-num">2</div><div class="step-text"><strong>기기 소개</strong> — VRINK 기기 위치 및 사용법</div></div>
         <div class="step"><div class="step-num">3</div><div class="step-text"><strong>시음 체험</strong> — 회원에게 직접 시음 권유</div></div>
         <div class="step"><div class="step-num">4</div><div class="step-text"><strong>앱 가입</strong> — 가입 안내 및 연락처 수집</div></div>
         <div class="step"><div class="step-num">5</div><div class="step-text"><strong>결과 보고</strong> — 방문 후 매니저에게 보고</div></div>
       </div>
-      <div style="font-size:13px;font-weight:700;color:var(--gray-500);margin-bottom:12px;letter-spacing:.04em;text-transform:uppercase;">방문 전 체크리스트</div>
-      <div class="rule-list">
-        <div class="rule-item"><div class="rule-icon ok">✓</div>거점 주소 확인</div>
-        <div class="rule-item"><div class="rule-icon ok">✓</div>담당자 이름 확인</div>
-        <div class="rule-item"><div class="rule-icon ok">✓</div>QR 스티커 지참</div>
-        <div class="rule-item"><div class="rule-icon ok">✓</div>명단 기록지 지참</div>
+      <div class="sub-label">방문 전 체크리스트</div>
+      <div class="rules-group">
+        <div class="rule-row"><div class="rule-icon ok">✓</div>거점 주소 확인</div>
+        <div class="rule-row"><div class="rule-icon ok">✓</div>담당자 이름 확인</div>
+        <div class="rule-row"><div class="rule-icon ok">✓</div>QR 스티커 지참</div>
+        <div class="rule-row"><div class="rule-icon ok">✓</div>명단 기록지 지참</div>
       </div>
     </section>
 
-    <!-- 09. B2B -->
+    <!-- 09 -->
     <section class="section" id="b2b">
       <div class="section-head">
-        <div class="section-num-large">09</div>
+        <div class="section-num">09</div>
         <div class="section-title">B2B 문의 대응</div>
       </div>
-      <div class="section-divider"></div>
-      <div style="font-size:13px;font-weight:700;color:var(--gray-500);margin-bottom:12px;letter-spacing:.04em;text-transform:uppercase;">이런 말이 나오면 B2B</div>
-      <div class="rule-list" style="margin-bottom:20px;">
-        <div class="rule-item"><div class="rule-icon" style="background:#fef3c7;color:#d97706;">!</div>"기기 도입하고 싶은데요"</div>
-        <div class="rule-item"><div class="rule-icon" style="background:#fef3c7;color:#d97706;">!</div>"계약 조건이 어떻게 되나요?"</div>
-        <div class="rule-item"><div class="rule-icon" style="background:#fef3c7;color:#d97706;">!</div>"저 헬스장 원장인데요"</div>
+      <div class="section-hr"></div>
+      <div class="sub-label">이런 말이 나오면 B2B</div>
+      <div class="rules-group" style="margin-bottom:28px">
+        <div class="rule-row"><div class="rule-icon warn">!</div>"기기 도입하고 싶은데요"</div>
+        <div class="rule-row"><div class="rule-icon warn">!</div>"계약 조건이 어떻게 되나요?"</div>
+        <div class="rule-row"><div class="rule-icon warn">!</div>"저 헬스장 원장인데요"</div>
       </div>
-      <div style="font-size:13px;font-weight:700;color:var(--gray-500);margin-bottom:12px;letter-spacing:.04em;text-transform:uppercase;">행동 순서</div>
-      <div class="steps" style="margin-bottom:16px;">
+      <div class="sub-label">행동 순서</div>
+      <div class="steps" style="margin-bottom:20px">
         <div class="step"><div class="step-num">1</div><div class="step-text">연락처(이름 + 전화번호)만 받기</div></div>
         <div class="step"><div class="step-num">2</div><div class="step-text"><strong>매니저 즉시 연결</strong></div></div>
       </div>
-      <div class="script-label">추천 멘트</div>
+      <div class="eyebrow">추천 멘트</div>
       <div class="script-box">"감사합니다! 연락처 남겨주시면 담당자가 자세히 안내드릴게요."</div>
-      <div class="warn-box"><strong>절대 금지:</strong> 비용·가격·계약 조건 직접 답변</div>
+      <div class="callout warn" style="margin-top:14px"><strong>절대 금지:</strong> 비용·가격·계약 조건 직접 답변</div>
     </section>
 
-    <!-- 10. FAQ -->
+    <!-- 10 -->
     <section class="section" id="faq">
       <div class="section-head">
-        <div class="section-num-large">10</div>
+        <div class="section-num">10</div>
         <div class="section-title">자주 묻는 질문</div>
       </div>
-      <div class="section-divider"></div>
+      <div class="section-hr"></div>
       <div class="faq-list">
         <div class="faq-item">
-          <div class="faq-q">이거 뭐예요?</div>
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-badge">Q</span>
+            <span class="faq-q-text">이거 뭐예요?</span>
+            <span class="faq-arrow">▾</span>
+          </div>
           <div class="faq-a">운동하시는 분들을 위한 건강 음료예요. 6가지 기능성 샷을 직접 골라 드실 수 있어요.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">카페인 있어요?</div>
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-badge">Q</span>
+            <span class="faq-q-text">카페인 있어요?</span>
+            <span class="faq-arrow">▾</span>
+          </div>
           <div class="faq-a">부스터 샷에만 카페인이 들어있어요. 카페인 없는 메뉴도 많으니 걱정 마세요.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">칼로리는 얼마예요?</div>
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-badge">Q</span>
+            <span class="faq-q-text">칼로리는 얼마예요?</span>
+            <span class="faq-arrow">▾</span>
+          </div>
           <div class="faq-a">샷마다 다르지만 한 잔 기준 매우 낮아요. 정확한 수치는 성분표 확인해 드릴게요.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">가격이 얼마예요?</div>
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-badge">Q</span>
+            <span class="faq-q-text">가격이 얼마예요?</span>
+            <span class="faq-arrow">▾</span>
+          </div>
           <div class="faq-a"><strong>박람회:</strong> "오늘은 무료 시음이에요!"<br><strong>거점:</strong> "앱 가입 후 이용 가능해요."</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">알레르기 성분 있어요?</div>
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-badge">Q</span>
+            <span class="faq-q-text">알레르기 성분 있어요?</span>
+            <span class="faq-arrow">▾</span>
+          </div>
           <div class="faq-a">성분표 확인해 드릴게요. 정확하지 않으면 매니저에게 바로 확인해 드릴게요.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">어디서 마실 수 있어요?</div>
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-q-badge">Q</span>
+            <span class="faq-q-text">어디서 마실 수 있어요?</span>
+            <span class="faq-arrow">▾</span>
+          </div>
           <div class="faq-a">앱에서 가까운 제휴 헬스장을 확인하실 수 있어요.</div>
         </div>
       </div>
     </section>
 
-    <!-- 11. 상황별 대처 -->
+    <!-- 11 -->
     <section class="section" id="situation">
       <div class="section-head">
-        <div class="section-num-large">11</div>
+        <div class="section-num">11</div>
         <div class="section-title">상황별 대처</div>
       </div>
-      <div class="section-divider"></div>
-      <table class="situation-table">
-        <thead>
-          <tr><th style="width:130px;">상황</th><th>행동</th></tr>
-        </thead>
+      <div class="section-hr"></div>
+      <table class="sit-table">
+        <thead><tr><th style="width:130px">상황</th><th>행동</th></tr></thead>
         <tbody>
           <tr><td>기기 고장</td><td>전원 재시작 → 안 되면 <strong>매니저 즉시 연락</strong></td></tr>
           <tr><td>재고/원료 부족</td><td>매니저에게 바로 알림, 남은 메뉴로 안내</td></tr>
@@ -915,24 +1006,24 @@ body{
       </table>
     </section>
 
-    <!-- 12. 행동 지침 -->
+    <!-- 12 -->
     <section class="section" id="rules">
       <div class="section-head">
-        <div class="section-num-large">12</div>
+        <div class="section-num">12</div>
         <div class="section-title">행동 지침 &amp; 긴급 연락처</div>
       </div>
-      <div class="section-divider"></div>
-      <div style="font-size:13px;font-weight:700;color:var(--gray-500);margin-bottom:12px;letter-spacing:.04em;text-transform:uppercase;">기본 행동 지침</div>
-      <div class="rule-list" style="margin-bottom:28px;">
-        <div class="rule-item"><div class="rule-icon ok">✓</div>유니폼 착용 + 명찰 패용 필수</div>
-        <div class="rule-item"><div class="rule-icon ok">✓</div>고객 응대 시 밝은 표정과 적극적 태도 유지</div>
-        <div class="rule-item"><div class="rule-icon ok">✓</div>음료 조작 전후 손 위생 관리</div>
-        <div class="rule-item"><div class="rule-icon ok">✓</div>근무 중 개인 SNS 게시 금지 (허가된 콘텐츠 제외)</div>
-        <div class="rule-item"><div class="rule-icon no">✗</div>고객과 개인 연락처 교환 금지</div>
-        <div class="rule-item"><div class="rule-icon no">✗</div>가격·계약 조건 임의 안내 금지</div>
-        <div class="rule-item"><div class="rule-icon no">✗</div>무단 이탈 및 자리 이동 금지</div>
+      <div class="section-hr"></div>
+      <div class="sub-label">기본 행동 지침</div>
+      <div class="rules-group" style="margin-bottom:32px">
+        <div class="rule-row"><div class="rule-icon ok">✓</div>유니폼 착용 + 명찰 패용 필수</div>
+        <div class="rule-row"><div class="rule-icon ok">✓</div>고객 응대 시 밝은 표정과 적극적 태도 유지</div>
+        <div class="rule-row"><div class="rule-icon ok">✓</div>음료 조작 전후 손 위생 관리</div>
+        <div class="rule-row"><div class="rule-icon ok">✓</div>근무 중 개인 SNS 게시 금지 (허가된 콘텐츠 제외)</div>
+        <div class="rule-row"><div class="rule-icon no">✗</div>고객과 개인 연락처 교환 금지</div>
+        <div class="rule-row"><div class="rule-icon no">✗</div>가격·계약 조건 임의 안내 금지</div>
+        <div class="rule-row"><div class="rule-icon no">✗</div>무단 이탈 및 자리 이동 금지</div>
       </div>
-      <div style="font-size:13px;font-weight:700;color:var(--gray-500);margin-bottom:12px;letter-spacing:.04em;text-transform:uppercase;">긴급 연락처</div>
+      <div class="sub-label">긴급 연락처</div>
       <div class="contact-grid">
         <div class="contact-card">
           <div class="contact-role">현장 매니저</div>
@@ -957,53 +1048,72 @@ body{
       </div>
     </section>
 
-  </div>
+  </div><!-- /main-inner -->
 </main>
 
 <script>
-// 사이드바 활성화
+// ── SIDEBAR ACTIVE
 function setActive(el) {
   document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
   updateProgress();
 }
 
-// 스크롤 기반 활성 섹션 감지
+// ── SCROLL → ACTIVE
 const sections = document.querySelectorAll('section[id]');
-const mainEl = document.getElementById('mainScroll');
+const mainEl   = document.getElementById('mainScroll');
 
 mainEl.addEventListener('scroll', () => {
-  let current = '';
+  let current = sections[0].id;
   sections.forEach(s => {
-    if (mainEl.scrollTop + 120 >= s.offsetTop) current = s.id;
+    if (mainEl.scrollTop + 160 >= s.offsetTop) current = s.id;
   });
   document.querySelectorAll('.nav-item').forEach(item => {
-    item.classList.remove('active');
-    if (item.getAttribute('href') === '#' + current) item.classList.add('active');
+    item.classList.toggle('active', item.getAttribute('href') === '#' + current);
   });
   updateProgress();
-});
+}, {passive:true});
 
 function updateProgress() {
   const active = document.querySelector('.nav-item.active');
-  const items = document.querySelectorAll('.nav-item');
+  const items  = document.querySelectorAll('.nav-item');
   let idx = 1;
   items.forEach((item, i) => { if (item === active) idx = i + 1; });
-  const pct = (idx / items.length) * 100;
-  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressFill').style.width = (idx / items.length * 100) + '%';
   document.getElementById('progressText').textContent =
     String(idx).padStart(2,'0') + ' / ' + String(items.length).padStart(2,'0');
 }
 
-// 검색
+// ── NAV SEARCH
 function filterNav(q) {
   const lower = q.toLowerCase();
   document.querySelectorAll('.nav-item').forEach(item => {
-    const txt = item.querySelector('.nav-text').textContent.toLowerCase();
-    item.style.display = txt.includes(lower) ? '' : 'none';
+    item.style.display = item.querySelector('.nav-text').textContent.toLowerCase().includes(lower) ? '' : 'none';
   });
 }
-</script>
 
+// ── FAQ ACCORDION
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+// ── SCROLL REVEAL (Intersection Observer)
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.section').forEach(s => revealObserver.observe(s));
+
+// ── HERO always visible
+const hero = document.querySelector('.hero');
+if (hero) { hero.style.opacity=1; hero.style.transform='none'; }
+</script>
 </body>
 </html>
