@@ -9,11 +9,11 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:       #f8f9fb;
-  --card:     #ffffff;
   --blue:     #3182F6;
-  --blue-50:  #eff6ff;
+  --blue-50:  #EEF4FF;
   --blue-100: #dbeafe;
+  --bg:       #edf1f7;
+  --card:     #ffffff;
   --gray-900: #111827;
   --gray-800: #1f2937;
   --gray-700: #374151;
@@ -23,838 +23,365 @@
   --gray-300: #d1d5db;
   --gray-200: #e5e7eb;
   --gray-100: #f3f4f6;
-  --left-w:   360px;
-  --gap:      56px;
 }
 
 html, body {
   width: 100%; height: 100%;
-  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
-  background: #ffffff;
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
   overflow: hidden;
 }
 
-body::before {
-  content: '';
-  position: fixed; top: 0; left: 0;
-  width: calc(var(--gap) + var(--left-w) + var(--gap)/2 + 32px);
-  height: 100%;
-  background: linear-gradient(to right, var(--bg) 82%, #ffffff);
-  z-index: 0;
-}
-
-.slide-shell {
-  position: absolute; inset: 0; z-index: 1;
+/* ── SLIDE SHELL ── */
+.slide {
+  position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
-  opacity: 0;
-  transition: opacity .3s ease;
+  padding: 48px 72px;
+  opacity: 0; transition: opacity .3s ease;
   pointer-events: none;
 }
-.slide-shell.active { opacity: 1; pointer-events: auto; }
+.slide.active { opacity: 1; pointer-events: auto; }
 
-.inner {
-  width: 100%; max-width: 1320px;
-  padding: 0 var(--gap);
-  display: grid;
-  grid-template-columns: var(--left-w) 1fr;
-  gap: var(--gap);
-  align-items: center;
-}
+.sw { width: 100%; max-width: 1040px; }
 
-.left-panel {
-  height: 560px;
-  display: flex; align-items: center;
+/* ── HEADER ── */
+.eyebrow {
+  font-size: 13px; font-weight: 600;
+  color: var(--blue); margin-bottom: 8px;
 }
-.left-content {
-  width: 100%;
-  padding-right: calc(var(--gap)/2);
-  display: flex; flex-direction: column;
-}
-
-.right-panel {
-  display: flex; flex-direction: column; gap: 10px;
-}
-
-/* Typography */
-.title {
-  font-size: clamp(24px, 3.6vw, 52px);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -.025em;
-  color: var(--gray-900);
+.s-title {
+  font-size: clamp(26px, 3.2vw, 40px); font-weight: 700;
+  color: var(--gray-900); letter-spacing: -.025em; line-height: 1.2;
   margin-bottom: 24px;
 }
-.subtitle {
-  font-size: clamp(14px, 1.5vw, 21px);
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -.015em;
-  color: var(--gray-800);
-}
-.body-text {
-  font-size: clamp(11px, 1vw, 14px);
-  font-weight: 400;
-  line-height: 1.7;
-  letter-spacing: -.005em;
-  color: var(--gray-600);
-}
-.check-text {
-  font-size: clamp(10px, 0.95vw, 13px);
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--gray-700);
-}
-.label-en {
-  font-size: clamp(9px, 0.75vw, 11px);
-  font-weight: 600;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--gray-500);
-}
-.label-ko {
-  font-size: clamp(9px, 0.75vw, 11px);
-  font-weight: 400;
-  color: var(--gray-500);
-}
+.s-title .dim { font-size: 60%; font-weight: 400; color: var(--gray-400); margin-left: 8px; }
 
-/* Section label */
-.section-label {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 18px;
+/* ── CARD BASE ── */
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 28px 32px;
+  box-shadow: 0 2px 20px rgba(0,0,0,.05);
 }
-.label-sep { color: var(--gray-300); }
+.card.blue { background: var(--blue); }
+.card.gray { background: var(--gray-100); }
 
-/* Divider block */
-.divider-block {
-  border-top: 1.5px solid var(--gray-200);
-  padding-top: 20px;
-  display: flex; flex-direction: column; gap: 10px;
-}
+/* ── GRIDS ── */
+.g2  { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.g3  { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.g22 { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; }
+.col { display: flex; flex-direction: column; gap: 14px; }
+.gap14 { gap: 14px; }
 
-/* Checks */
-.checks {
-  margin-top: 6px;
-  display: flex; flex-direction: column; gap: 7px;
-}
-.check-item {
-  display: flex; align-items: center; gap: 9px;
-}
-.check-icon {
-  width: 16px; height: 16px;
-  background: var(--blue-50);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  color: var(--blue);
-  font-size: 9px; font-weight: 600;
-}
-
-/* Page num */
-.page-num {
-  position: fixed; bottom: 28px; right: 36px;
-  font-size: 11px; font-weight: 500;
-  color: var(--gray-400);
-  letter-spacing: .06em;
-  z-index: 10;
-}
-
-/* Nav bar */
-.nav-bar {
-  position: fixed; bottom: 24px; left: 50%;
-  transform: translateX(-50%);
-  display: flex; align-items: center; gap: 16px;
-  z-index: 100;
-  background: white;
-  border: 1px solid var(--gray-200);
-  border-radius: 100px;
-  padding: 8px 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,.06);
-}
-.nav-btn {
-  background: none; border: none; cursor: pointer;
-  font-size: 16px; color: var(--gray-500);
-  padding: 2px 8px;
-}
-.nav-btn:hover { color: var(--gray-900); }
-.nav-label {
-  font-size: 12px; font-weight: 500;
-  color: var(--gray-600);
-  letter-spacing: .04em;
-  min-width: 52px; text-align: center;
-}
-
-/* ─── SLIDE 00: KPI COVER ─── */
-.kpi-cover {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.kpi-big {
-  background: #fff;
-  border: 1px solid var(--gray-200);
-  border-radius: 12px;
-  padding: 24px 26px;
-}
-.kpi-big.hi { background: var(--blue); border-color: var(--blue); }
-.kpi-big-num {
-  font-size: clamp(36px, 4.5vw, 64px);
-  font-weight: 600;
-  color: var(--gray-900);
-  letter-spacing: -.04em;
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.kpi-big-num span { font-size: 55%; color: var(--gray-400); font-weight: 400; }
-.kpi-big.hi .kpi-big-num { color: #fff; }
-.kpi-big.hi .kpi-big-num span { color: rgba(255,255,255,.6); }
-.kpi-big-label {
-  font-size: clamp(10px, .9vw, 13px);
-  font-weight: 400;
-  color: var(--gray-500);
-}
-.kpi-big.hi .kpi-big-label { color: rgba(255,255,255,.7); }
-
-/* ─── SLIDE 01: OVERVIEW CARDS ─── */
-.ov-cards { display: flex; flex-direction: column; gap: 10px; }
-.ov-card {
-  background: #fff;
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  display: flex; align-items: stretch;
-  overflow: hidden;
-  min-height: 72px;
-}
-.ov-num-col {
-  width: 56px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--gray-900);
-  font-size: clamp(16px, 2vw, 26px);
-  font-weight: 600; color: #fff;
-  letter-spacing: -.02em;
-}
-.ov-card.c2 .ov-num-col { background: var(--blue); }
-.ov-card.c3 .ov-num-col { background: var(--gray-700); }
-.ov-body {
-  flex: 1; padding: 14px 20px;
-  display: flex; flex-direction: column; gap: 4px;
-  justify-content: center;
-}
-.ov-cat {
-  font-size: 10px; font-weight: 600;
+/* ── CARD TYPOGRAPHY ── */
+.c-label {
+  font-size: 11px; font-weight: 600;
   letter-spacing: .08em; text-transform: uppercase;
-  color: var(--gray-400);
+  color: var(--gray-400); margin-bottom: 10px;
 }
-.ov-main {
-  font-size: clamp(12px, 1.1vw, 15px); font-weight: 500;
-  color: var(--gray-900); line-height: 1.4;
+.c-head {
+  font-size: clamp(16px, 1.8vw, 22px); font-weight: 700;
+  color: var(--gray-900); line-height: 1.35; letter-spacing: -.015em;
 }
-.ov-main strong { font-weight: 600; color: var(--blue); }
+.c-head .acc { color: var(--blue); }
+.c-head .ann { font-size: 68%; font-weight: 400; color: var(--gray-400); margin-left: 6px; }
+.c-body {
+  margin-top: 10px;
+  font-size: clamp(12px, 1vw, 14px); font-weight: 400;
+  color: var(--gray-500); line-height: 1.7;
+}
+.card.blue .c-label { color: rgba(255,255,255,.6); }
+.card.blue .c-head  { color: #fff; }
+.card.blue .c-body  { color: rgba(255,255,255,.75); }
 
-/* ─── SLIDE 02: CONDITION GRID ─── */
-.cond-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+/* ── KPI ── */
+.kpi-n {
+  font-size: clamp(40px, 5vw, 68px); font-weight: 700;
+  color: var(--gray-900); letter-spacing: -.04em; line-height: 1;
 }
-.cond-c {
-  background: #fff;
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  padding: 16px 18px;
-}
-.cond-c.hi { background: var(--blue); border-color: var(--blue); grid-column: 1 / -1; }
-.cond-c.wide { grid-column: 1 / -1; }
-.cond-k {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: .07em; text-transform: uppercase;
-  color: var(--gray-400); margin-bottom: 5px;
-}
-.cond-c.hi .cond-k { color: rgba(255,255,255,.6); }
-.cond-v {
-  font-size: clamp(15px, 1.6vw, 24px); font-weight: 600;
-  color: var(--gray-900); letter-spacing: -.025em; line-height: 1.1;
-}
-.cond-c.hi .cond-v { color: #fff; }
-.cond-sub {
-  font-size: clamp(10px, .85vw, 12px); font-weight: 400;
-  color: var(--gray-500); margin-top: 3px;
-}
-.cond-c.hi .cond-sub { color: rgba(255,255,255,.65); }
-.cond-wide-inner {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-}
-.cond-half {
-  padding: 14px 18px;
-  border-right: 1px solid var(--gray-100);
-}
-.cond-half:last-child { border-right: none; }
+.kpi-n .u { font-size: 42%; font-weight: 400; color: var(--gray-400); }
+.card.blue .kpi-n { color: #fff; }
+.card.blue .kpi-n .u { color: rgba(255,255,255,.6); }
+.kpi-lbl { margin-top: 10px; font-size: 13px; font-weight: 400; color: var(--gray-500); }
+.card.blue .kpi-lbl { color: rgba(255,255,255,.7); }
 
-/* ─── SLIDE 03: PHASE CARDS ─── */
-.ph-stack { display: flex; flex-direction: column; gap: 6px; }
-.ph-card {
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid var(--gray-200);
-}
-.ph-head {
-  display: flex; align-items: center; gap: 10px;
-  padding: 13px 18px;
-  background: var(--gray-900);
-}
-.ph-card.blue .ph-head { background: var(--blue); }
-.ph-tag {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.5); white-space: nowrap;
-}
-.ph-name {
-  font-size: clamp(13px, 1.2vw, 16px); font-weight: 600;
-  color: #fff;
-}
-.ph-date {
-  margin-left: auto;
-  font-size: clamp(10px, .85vw, 12px); font-weight: 400;
-  color: rgba(255,255,255,.5); white-space: nowrap;
-}
-.ph-body {
-  background: #fff;
-  padding: 10px 18px 12px;
-  display: flex; flex-direction: column; gap: 7px;
-}
-.ph-task {
-  display: flex; align-items: center; gap: 8px;
-  font-size: clamp(11px, .95vw, 13px); font-weight: 400;
-  color: var(--gray-600);
-}
-.ph-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%; background: var(--blue);
-  flex-shrink: 0;
-}
-.ph-connector {
-  height: 18px;
-  display: flex; align-items: center; padding-left: 18px;
-}
-.ph-connector svg { color: var(--gray-300); }
+/* ── BAR CHART ── */
+.bar-chart { margin-top: 18px; display: flex; flex-direction: column; gap: 0; }
+.bar-row { display: flex; align-items: center; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--gray-100); }
+.bar-row:last-child { border-bottom: none; }
+.bar-track { flex: 1; height: 38px; border-radius: 10px; background: var(--gray-100); position: relative; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 10px; }
+.bar-fill.g { background: var(--gray-200); }
+.bar-fill.b { background: var(--blue); }
+.bar-meta { width: 120px; flex-shrink: 0; }
+.bar-val { font-size: 13px; font-weight: 700; color: var(--gray-800); }
+.bar-yr  { font-size: 11px; font-weight: 400; color: var(--gray-400); margin-top: 2px; }
 
-/* ─── SLIDE 04: TIME FLOW ─── */
-.tflow {
-  background: #fff;
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.trow {
-  display: grid;
-  grid-template-columns: 90px 1fr;
-  align-items: center;
-  padding: 12px 18px;
-  border-bottom: 1px solid var(--gray-100);
-}
-.trow:last-child { border-bottom: none; }
-.trow.tmain { background: var(--blue-50); }
-.ttime {
-  font-size: clamp(11px, 1vw, 13px); font-weight: 600;
-  color: var(--gray-400); letter-spacing: -.01em;
-  white-space: nowrap;
-}
-.trow.tmain .ttime { color: var(--blue); }
-.tactivity {
-  font-size: clamp(11px, .95vw, 13px); font-weight: 400;
-  color: var(--gray-700); line-height: 1.4;
-}
-.trow.tmain .tactivity { color: var(--gray-900); font-weight: 500; }
-.trow.tmain .tactivity strong { color: var(--blue); }
-
-/* ─── SLIDE 05: SHOT CARDS ─── */
-.shots {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-}
-.shot-c {
-  border-radius: 10px; overflow: hidden;
-  border: 1px solid var(--gray-200); background: #fff;
-  display: flex; flex-direction: column;
-}
-.shot-bar { height: 3px; width: 100%; }
-.shot-bar.energy  { background: #f97316; }
-.shot-bar.cut     { background: #22c55e; }
-.shot-bar.vit     { background: #eab308; }
-.shot-bar.relax   { background: #a855f7; }
-.shot-bar.amino   { background: #ef4444; }
-.shot-bar.lem     { background: var(--blue); }
-.shot-c-inner {
-  padding: 11px 13px;
-  display: flex; flex-direction: column; gap: 4px; flex: 1;
-}
-.shot-c.is-lemon { background: var(--blue-50); border-color: var(--blue-100); }
-.shot-c-name {
-  font-size: clamp(12px, 1.1vw, 15px); font-weight: 600;
-  color: var(--gray-900);
-}
-.shot-c.is-lemon .shot-c-name { color: var(--blue); }
-.shot-c-desc {
-  font-size: clamp(9px, .82vw, 11px); font-weight: 400;
-  color: var(--gray-500); line-height: 1.35;
-}
-.shot-c-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 3px; }
-.shot-c-tag {
-  font-size: clamp(8px, .7vw, 10px); font-weight: 500;
-  color: var(--gray-600);
-  background: var(--gray-100);
-  padding: 1px 6px; border-radius: 100px;
-}
-.shot-c.is-lemon .shot-c-tag { background: rgba(49,130,246,.12); color: var(--blue); }
-
-/* ─── SLIDE 06: TASTING GUIDE ─── */
-.qcard {
-  background: var(--gray-100);
-  border-left: 3px solid var(--blue);
-  border-radius: 8px;
-  padding: 14px 18px;
-}
-.qmark {
-  font-size: 28px; line-height: 1;
-  color: var(--blue); opacity: .35; font-weight: 600;
-  margin-bottom: 4px;
-}
-.qtext {
-  font-size: clamp(11px, .95vw, 13px); font-weight: 400;
-  color: var(--gray-700); line-height: 1.7; font-style: italic;
-}
-.dsteps {
-  display: flex; align-items: stretch; gap: 0;
-}
-.dstep {
-  flex: 1;
-  background: #fff;
-  border: 1px solid var(--gray-200);
-  border-radius: 8px;
-  padding: 12px 8px;
-  display: flex; flex-direction: column; align-items: center; gap: 5px;
-  text-align: center;
-}
-.dnum {
-  width: 20px; height: 20px;
-  border-radius: 50%; background: var(--blue);
-  color: #fff; font-size: 10px; font-weight: 600;
+/* ── ICON CIRCLE ── */
+.ic {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--blue-50);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.dlabel {
-  font-size: clamp(9px, .82vw, 11px); font-weight: 600;
-  color: var(--gray-800);
-}
-.dsub {
-  font-size: clamp(8px, .7vw, 10px); font-weight: 400;
-  color: var(--gray-500); line-height: 1.3;
-}
-.darrow {
-  width: 20px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; color: var(--gray-300);
-}
-.callout-warn {
-  background: #fffbeb;
-  border: 1px solid #fde68a;
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-size: clamp(10px, .85vw, 12px); font-weight: 500;
-  color: #92400e; line-height: 1.5;
-}
-.callout-info {
-  background: var(--blue-50);
-  border: 1px solid var(--blue-100);
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-size: clamp(10px, .85vw, 12px); font-weight: 400;
-  color: #1d4ed8; line-height: 1.5;
-}
+.ic svg { display: block; }
 
-/* ─── SLIDE 07: REGISTRATION FLOW ─── */
-.rflow {
-  display: flex; align-items: stretch; gap: 0;
+/* ── OVERVIEW ROWS (Slide 01) ── */
+.ov-row {
+  background: var(--card); border-radius: 16px;
+  display: flex; align-items: center; gap: 20px;
+  padding: 18px 24px;
+  box-shadow: 0 1px 10px rgba(0,0,0,.04);
 }
-.rstep {
-  flex: 1;
-  background: #fff;
-  border: 1px solid var(--gray-200);
-  border-radius: 8px;
-  padding: 16px 8px;
-  display: flex; flex-direction: column; align-items: center; gap: 7px;
-  text-align: center;
-}
-.rnum {
-  width: 26px; height: 26px;
-  border-radius: 50%; background: var(--blue);
-  color: #fff; font-size: 11px; font-weight: 600;
+.ov-num {
+  width: 44px; height: 44px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; color: #fff;
+  flex-shrink: 0;
 }
-.rlabel {
-  font-size: clamp(10px, .9vw, 13px); font-weight: 600;
-  color: var(--gray-800);
-}
-.rsub {
-  font-size: clamp(8px, .72vw, 10px); font-weight: 400;
-  color: var(--gray-500); line-height: 1.3;
-}
-.rarrow {
-  display: flex; align-items: center; justify-content: center;
-  width: 20px; flex-shrink: 0;
-  font-size: 14px; color: var(--gray-300);
-}
+.ov-num.n1 { background: var(--gray-900); }
+.ov-num.n2 { background: var(--blue); }
+.ov-num.n3 { background: var(--gray-700); }
+.ov-cat { font-size: 10px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 4px; }
+.ov-text { font-size: clamp(13px, 1.2vw, 15px); font-weight: 500; color: var(--gray-900); line-height: 1.35; }
+.ov-text .acc { color: var(--blue); font-weight: 600; }
 
-/* ─── SLIDE 08: STEP CARDS ─── */
-.step-card {
-  background: #fff;
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  display: flex; align-items: stretch;
-  overflow: hidden;
-}
-.step-card.active {
-  border-color: var(--blue-100);
-  background: var(--blue-50);
-}
-.step-num-col {
-  width: 46px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--gray-100);
-  border-right: 1px solid var(--gray-200);
-}
-.step-card.active .step-num-col {
-  background: var(--blue);
-  border-right-color: var(--blue);
-}
-.step-num-text {
-  font-size: clamp(11px, 1.1vw, 15px);
-  font-weight: 600;
-  color: var(--gray-400);
-}
-.step-card.active .step-num-text { color: #fff; }
-.step-body {
-  flex: 1; padding: 12px 16px;
-  display: flex; align-items: center; gap: 10px;
-}
-.step-badge {
-  display: inline-flex;
-  padding: 3px 10px;
-  border-radius: 100px;
-  background: var(--gray-100);
-  flex-shrink: 0; white-space: nowrap;
-}
-.step-card.active .step-badge { background: rgba(49,130,246,.12); }
-.step-badge-text {
-  font-size: clamp(9px, .8vw, 11px);
-  font-weight: 600;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: var(--gray-500);
-}
-.step-card.active .step-badge-text { color: var(--blue); }
-.step-desc {
-  font-size: clamp(11px, .95vw, 13px);
-  font-weight: 400;
-  color: var(--gray-600);
-  line-height: 1.4;
-}
-.step-card.active .step-desc { color: var(--gray-800); font-weight: 500; }
-.step-desc strong { font-weight: 600; color: var(--gray-800); }
-.step-card.active .step-desc strong { color: var(--blue); }
+/* ── PHASE CARDS (Slide 03) ── */
+.ph-card { border-radius: 18px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,.07); }
+.ph-head { padding: 16px 24px; display: flex; align-items: center; gap: 14px; }
+.ph-card.dk .ph-head { background: var(--gray-900); }
+.ph-card.bl .ph-head { background: var(--blue); }
+.ph-tag  { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+.ph-name { font-size: 16px; font-weight: 700; color: #fff; }
+.ph-date { margin-left: auto; font-size: 12px; color: rgba(255,255,255,.45); white-space: nowrap; }
+.ph-body { background: var(--card); padding: 14px 24px; display: flex; flex-direction: column; gap: 8px; }
+.ph-task { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
+.ph-dot  { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+.ph-arrow { height: 20px; display: flex; align-items: center; padding-left: 20px; }
 
-/* ─── SLIDE 09: B2B ─── */
-.b2b-box {
-  background: #fffbeb;
-  border: 1px solid #fde68a;
-  border-radius: 10px;
-  padding: 13px 16px;
-  display: flex; flex-direction: column; gap: 8px;
-}
-.b2b-box-label {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: #92400e;
-}
-.b2b-signal {
-  display: flex; align-items: center; gap: 8px;
-}
-.b2b-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: #f59e0b; flex-shrink: 0;
-}
-.b2b-q {
-  font-size: clamp(11px, .95vw, 13px); font-weight: 400;
-  color: #78350f; font-style: italic;
-}
-.b2b-q::before { content: '"'; }
-.b2b-q::after { content: '"'; }
-.script-box {
-  background: var(--gray-100);
-  border-left: 3px solid var(--blue);
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: clamp(11px, .95vw, 13px);
-  color: #374151;
-  font-style: italic;
-  line-height: 1.65;
-}
-.inline-badge {
-  display: inline-flex;
-  padding: 2px 10px;
-  border-radius: 100px;
-  background: var(--blue);
-  color: #fff;
-  font-size: clamp(9px, .8vw, 11px);
-  font-weight: 600;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  vertical-align: middle;
-  margin-left: 8px;
-}
+/* ── TIMELINE (Slide 04) ── */
+.tl { background: var(--card); border-radius: 20px; overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,.05); }
+.tl-row { display: grid; grid-template-columns: 96px 1fr; align-items: center; padding: 13px 24px; border-bottom: 1px solid var(--gray-100); }
+.tl-row:last-child { border-bottom: none; }
+.tl-row.hi { background: var(--blue-50); }
+.tl-t { font-size: 12px; font-weight: 600; color: var(--gray-400); white-space: nowrap; }
+.tl-row.hi .tl-t { color: var(--blue); }
+.tl-a { font-size: 13px; font-weight: 400; color: var(--gray-700); line-height: 1.4; }
+.tl-row.hi .tl-a { color: var(--gray-900); font-weight: 500; }
+.tl-row.hi .tl-a strong { color: var(--blue); }
 
-/* ─── SLIDE 10: FAQ ─── */
-.faq-list {
-  background: #fff;
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  padding: 4px 16px;
-}
-.faq-row {
-  display: flex; gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--gray-100);
-}
+/* ── SHOT CARDS (Slide 05) ── */
+.shot { border-radius: 16px; overflow: hidden; background: var(--card); box-shadow: 0 1px 10px rgba(0,0,0,.05); }
+.shot-bar { height: 3px; }
+.e { background: #f97316; } .ct { background: #22c55e; } .v { background: #eab308; }
+.r { background: #a855f7; } .am { background: #ef4444; } .l { background: var(--blue); }
+.shot-in { padding: 14px 16px; }
+.shot.is-lem { background: var(--blue-50); }
+.s-name { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+.shot.is-lem .s-name { color: var(--blue); }
+.s-desc { font-size: 11px; font-weight: 400; color: var(--gray-500); line-height: 1.35; }
+.s-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+.s-tag { font-size: 9px; font-weight: 500; padding: 2px 7px; border-radius: 100px; background: var(--gray-100); color: var(--gray-600); }
+.shot.is-lem .s-tag { background: rgba(49,130,246,.12); color: var(--blue); }
+
+/* ── QUOTE (Slide 06) ── */
+.qcard { background: var(--gray-100); border-left: 3px solid var(--blue); border-radius: 16px; padding: 16px 22px; }
+.qmark { font-size: 26px; font-weight: 700; color: var(--blue); opacity: .3; line-height: 1; margin-bottom: 4px; }
+.qtext { font-size: 13px; font-weight: 400; color: var(--gray-700); line-height: 1.75; font-style: italic; }
+
+/* ── DEVICE STEPS (Slide 06) ── */
+.dsteps { display: flex; align-items: center; gap: 0; }
+.dstep { flex: 1; background: var(--card); border-radius: 14px; padding: 14px 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; box-shadow: 0 1px 8px rgba(0,0,0,.05); }
+.dnum { width: 22px; height: 22px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.dlabel { font-size: 12px; font-weight: 600; color: var(--gray-800); }
+.dsub   { font-size: 10px; font-weight: 400; color: var(--gray-400); }
+.darrow { width: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--gray-300); }
+
+/* ── REG FLOW (Slide 07) ── */
+.rflow { display: flex; align-items: stretch; gap: 0; }
+.rstep { flex: 1; background: var(--card); border-radius: 14px; padding: 18px 10px; display: flex; flex-direction: column; align-items: center; gap: 7px; text-align: center; box-shadow: 0 1px 8px rgba(0,0,0,.05); }
+.rnum  { width: 26px; height: 26px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.rlabel { font-size: 13px; font-weight: 600; color: var(--gray-800); }
+.rsub   { font-size: 10px; font-weight: 400; color: var(--gray-400); line-height: 1.3; }
+.rarrow { display: flex; align-items: center; justify-content: center; width: 22px; flex-shrink: 0; font-size: 14px; color: var(--gray-300); }
+
+/* ── STEP CARDS (Slide 08) ── */
+.stepc { background: var(--card); border-radius: 14px; display: flex; align-items: stretch; overflow: hidden; box-shadow: 0 1px 8px rgba(0,0,0,.04); }
+.stepc.hi { background: var(--blue-50); box-shadow: 0 2px 14px rgba(49,130,246,.12); }
+.stepc-nc { width: 48px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--gray-100); }
+.stepc.hi .stepc-nc { background: var(--blue); }
+.stepc-nt { font-size: 14px; font-weight: 700; color: var(--gray-400); }
+.stepc.hi .stepc-nt { color: #fff; }
+.stepc-bd { flex: 1; padding: 13px 18px; display: flex; align-items: center; gap: 12px; }
+.stepc-badge { padding: 3px 10px; border-radius: 100px; background: var(--gray-100); flex-shrink: 0; white-space: nowrap; }
+.stepc.hi .stepc-badge { background: rgba(49,130,246,.12); }
+.stepc-bt { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--gray-500); }
+.stepc.hi .stepc-bt { color: var(--blue); }
+.stepc-dt { font-size: 13px; font-weight: 400; color: var(--gray-600); line-height: 1.4; }
+.stepc.hi .stepc-dt { color: var(--gray-900); font-weight: 500; }
+.stepc-dt strong { font-weight: 600; color: var(--gray-800); }
+.stepc.hi .stepc-dt strong { color: var(--blue); }
+
+/* ── B2B TRIGGER BOX ── */
+.b2b-box { background: #fffbeb; border-radius: 16px; padding: 16px 22px; }
+.b2b-lbl { font-size: 10px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #92400e; margin-bottom: 10px; }
+.b2b-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+.b2b-row:last-child { margin-bottom: 0; }
+.b2b-dot { width: 5px; height: 5px; border-radius: 50%; background: #f59e0b; flex-shrink: 0; }
+.b2b-q { font-size: 13px; font-weight: 400; color: #78350f; font-style: italic; }
+.b2b-q::before { content: '"'; } .b2b-q::after { content: '"'; }
+
+/* ── CALLOUTS ── */
+.cw { background: #fffbeb; border-radius: 14px; padding: 12px 18px; font-size: 12px; font-weight: 500; color: #92400e; line-height: 1.5; }
+.ci { background: var(--blue-50); border-radius: 14px; padding: 12px 18px; font-size: 12px; font-weight: 400; color: #1d4ed8; line-height: 1.5; }
+
+/* ── FAQ (Slide 10) ── */
+.faq-row { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--gray-100); }
 .faq-row:last-child { border-bottom: none; }
-.faq-q-label {
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: var(--blue);
-  color: #fff;
-  font-size: 10px; font-weight: 600;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 1px;
-}
-.faq-content { flex: 1; }
-.faq-question {
-  font-size: clamp(11px, .95vw, 13px);
-  font-weight: 600;
-  color: var(--gray-800);
-  margin-bottom: 3px;
-}
-.faq-answer {
-  font-size: clamp(10px, .85vw, 12px);
-  font-weight: 400;
-  color: var(--gray-500);
-  line-height: 1.5;
-}
+.faq-q { width: 22px; height: 22px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.faq-qt { font-size: 13px; font-weight: 600; color: var(--gray-800); margin-bottom: 3px; }
+.faq-at { font-size: 12px; font-weight: 400; color: var(--gray-500); line-height: 1.55; }
 
-/* ─── SLIDE 11: SITUATION CARDS ─── */
-.sit-cards {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-}
-.sitc {
-  background: #fff;
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  padding: 12px 14px;
-  display: flex; flex-direction: column; gap: 5px;
-}
-.sitc.urg { background: #fef2f2; border-color: #fecaca; }
-.sitc.wrn { background: #fffbeb; border-color: #fde68a; }
-.sitc.nrm { background: var(--blue-50); border-color: var(--blue-100); }
-.sitc-head { display: flex; align-items: center; gap: 6px; }
+/* ── SITUATION CARDS (Slide 11) ── */
+.sitg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sitc { border-radius: 16px; padding: 16px 18px; }
+.sitc.urg { background: #fef2f2; } .sitc.wrn { background: #fffbeb; }
+.sitc.nrm { background: var(--blue-50); } .sitc.bas { background: var(--gray-100); }
+.sitc-hd { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
 .sitc-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.sitc.urg .sitc-dot { background: #ef4444; }
-.sitc.wrn .sitc-dot { background: #f59e0b; }
-.sitc.nrm .sitc-dot { background: var(--blue); }
-.sitc.base .sitc-dot { background: var(--gray-400); }
-.sitc-name {
-  font-size: clamp(11px, 1vw, 13px); font-weight: 600;
-  color: var(--gray-800);
-}
-.sitc.urg .sitc-name { color: #991b1b; }
-.sitc.wrn .sitc-name { color: #92400e; }
-.sitc.nrm .sitc-name { color: #1d4ed8; }
-.sitc-resp {
-  font-size: clamp(10px, .85vw, 12px); font-weight: 400;
-  color: var(--gray-600); line-height: 1.45;
-}
-.sitc.urg .sitc-resp { color: #b91c1c; }
-.sitc.wrn .sitc-resp { color: #92400e; }
+.sitc.urg .sitc-dot { background: #ef4444; } .sitc.wrn .sitc-dot { background: #f59e0b; }
+.sitc.nrm .sitc-dot { background: var(--blue); } .sitc.bas .sitc-dot { background: var(--gray-400); }
+.sitc-name { font-size: 13px; font-weight: 700; color: var(--gray-800); }
+.sitc.urg .sitc-name { color: #991b1b; } .sitc.wrn .sitc-name { color: #92400e; } .sitc.nrm .sitc-name { color: #1d4ed8; }
+.sitc-resp { font-size: 12px; font-weight: 400; color: var(--gray-600); line-height: 1.5; }
+.sitc.urg .sitc-resp { color: #b91c1c; } .sitc.wrn .sitc-resp { color: #92400e; }
 
-/* ─── SLIDE 12: RULES & CONTACTS ─── */
-.rules-g { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-.rulec {
-  display: flex; align-items: flex-start; gap: 8px;
-  padding: 8px 10px; border-radius: 8px;
-}
-.rulec.ok { background: #f0fdf4; }
-.rulec.no { background: #fef2f2; }
-.rulec-badge {
-  width: 15px; height: 15px;
-  border-radius: 50%; font-size: 9px; font-weight: 600;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 1px;
-}
-.rulec.ok .rulec-badge { background: #22c55e; color: #fff; }
-.rulec.no .rulec-badge { background: #ef4444; color: #fff; }
-.rulec-text {
-  font-size: clamp(9px, .8vw, 11px); font-weight: 400;
-  color: var(--gray-700); line-height: 1.4;
-}
-.contacts-g { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.contact-cc {
-  background: #fff;
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  padding: 11px 14px;
-}
-.contact-cc-role {
-  font-size: clamp(9px, .78vw, 10px); font-weight: 600;
-  letter-spacing: .06em; text-transform: uppercase;
-  color: var(--gray-400); margin-bottom: 3px;
-}
-.contact-cc-name {
-  font-size: clamp(10px, .9vw, 12px); font-weight: 500;
-  color: var(--gray-700);
-}
-.contact-cc-num {
-  font-size: clamp(13px, 1.2vw, 17px); font-weight: 600;
-  color: var(--gray-900); letter-spacing: -.02em; margin-top: 3px;
-}
+/* ── RULES + CONTACTS (Slide 12) ── */
+.rulesg { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.rulec { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; border-radius: 12px; }
+.rulec.ok { background: #f0fdf4; } .rulec.no { background: #fef2f2; }
+.rulec-b { width: 16px; height: 16px; border-radius: 50%; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.rulec.ok .rulec-b { background: #22c55e; color: #fff; } .rulec.no .rulec-b { background: #ef4444; color: #fff; }
+.rulec-t { font-size: 12px; font-weight: 400; color: var(--gray-700); line-height: 1.4; }
+.contactg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.contactc { background: var(--card); border-radius: 16px; padding: 14px 18px; box-shadow: 0 1px 10px rgba(0,0,0,.05); }
+.cc-role { font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 4px; }
+.cc-name { font-size: 12px; font-weight: 500; color: var(--gray-700); }
+.cc-num  { font-size: 16px; font-weight: 700; color: var(--gray-900); letter-spacing: -.02em; margin-top: 3px; }
 .cp { color: var(--gray-400); font-style: italic; }
+
+/* ── NAV BAR ── */
+.nav-bar {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 16px; z-index: 100;
+  background: rgba(255,255,255,.88); backdrop-filter: blur(8px);
+  border: 1px solid rgba(0,0,0,.07); border-radius: 100px;
+  padding: 8px 18px; box-shadow: 0 4px 20px rgba(0,0,0,.08);
+}
+.nav-btn { background: none; border: none; cursor: pointer; font-size: 16px; color: var(--gray-500); padding: 2px 8px; }
+.nav-btn:hover { color: var(--gray-900); }
+.nav-lbl { font-size: 12px; font-weight: 500; color: var(--gray-600); letter-spacing: .04em; min-width: 54px; text-align: center; }
+.page-num { position: fixed; bottom: 30px; right: 36px; font-size: 11px; font-weight: 500; color: var(--gray-400); letter-spacing: .06em; z-index: 10; }
 </style>
 </head>
 <body>
 
-<!-- ================================================ SLIDE 00: COVER -->
-<div class="slide-shell active" id="slide-0">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">CREW GUIDE</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">크루 가이드</span>
-        </div>
-        <h1 class="title">VRINK<br>크루<br>가이드</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">스포엑스 2026 에디션</h2>
-          <p class="body-text">처음 일하는 크루도 한 번 읽으면<br>현장 투입 가능</p>
-        </div>
+<!-- ════════════════════════════════ SLIDE 00 · COVER ════ -->
+<div class="slide active" id="s0">
+  <div class="sw">
+    <div class="eyebrow">Crew Guide</div>
+    <div class="s-title">VRINK 크루 가이드<span class="dim">스포엑스 2026</span></div>
+    <div class="g2">
+      <div class="card blue">
+        <div class="c-label">일급</div>
+        <div class="kpi-n" style="color:#fff">20<span class="u" style="color:rgba(255,255,255,.6)">만원</span></div>
+        <div class="kpi-lbl">박람회 종료 후 총액 일괄 지급</div>
+      </div>
+      <div class="card">
+        <div class="c-label">음료 메뉴</div>
+        <div class="kpi-n">6<span class="u">종</span></div>
+        <div class="kpi-lbl">최대 3가지 조합 가능</div>
+      </div>
+      <div class="card">
+        <div class="c-label">박람회 일정</div>
+        <div class="kpi-n">4<span class="u">일</span></div>
+        <div class="kpi-lbl">3/26~29 · 코엑스 SS505</div>
+      </div>
+      <div class="card">
+        <div class="c-label">가이드 섹션</div>
+        <div class="kpi-n">12<span class="u">개</span></div>
+        <div class="kpi-lbl">처음 일하는 크루도 한 번에 이해 가능</div>
       </div>
     </div>
-    <div class="right-panel">
-      <div class="kpi-cover">
-        <div class="kpi-big hi">
-          <div class="kpi-big-num">20<span>만원</span></div>
-          <div class="kpi-big-label">일급</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ SLIDE 01 · 한눈에 보기 ════ -->
+<div class="slide" id="s1">
+  <div class="sw">
+    <div class="eyebrow">Overview</div>
+    <div class="s-title">이것만 기억하세요</div>
+    <div class="col gap14">
+      <div class="ov-row">
+        <div class="ov-num n1">01</div>
+        <div>
+          <div class="ov-cat">Mission · 할 일</div>
+          <div class="ov-text">시음 권유 → 제품 설명 → <span class="acc">앱 가입 유도</span></div>
         </div>
-        <div class="kpi-big">
-          <div class="kpi-big-num">6<span>종</span></div>
-          <div class="kpi-big-label">음료 메뉴</div>
+      </div>
+      <div class="ov-row">
+        <div class="ov-num n2">02</div>
+        <div>
+          <div class="ov-cat">Schedule · 일정</div>
+          <div class="ov-text">스포엑스 3/26~29 · 이후 <span class="acc">거점 방문</span></div>
         </div>
-        <div class="kpi-big">
-          <div class="kpi-big-num">4<span>일</span></div>
-          <div class="kpi-big-label">박람회 일정</div>
-        </div>
-        <div class="kpi-big">
-          <div class="kpi-big-num">12<span>개</span></div>
-          <div class="kpi-big-label">섹션</div>
+      </div>
+      <div class="ov-row">
+        <div class="ov-num n3">03</div>
+        <div>
+          <div class="ov-cat">Pay · 근무 조건</div>
+          <div class="ov-text">일급 <span class="acc">20만원</span> · 10:00~18:00 (일요일 ~16:00)</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ================================================ SLIDE 01: 한눈에 보기 -->
-<div class="slide-shell" id="slide-1">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">OVERVIEW</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">한눈에 보기</span>
-        </div>
-        <h1 class="title">한눈에<br>보기</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">이것만 기억하세요 <span class="inline-badge">필독</span></h2>
-          <p class="body-text">핵심 업무와 일정, 근무 조건을<br>한 페이지로 정리했습니다.</p>
+<!-- ════════════════════════════════ SLIDE 02 · 근무 조건 ════ -->
+<div class="slide" id="s2">
+  <div class="sw">
+    <div class="eyebrow">Work Conditions</div>
+    <div class="s-title">근무 조건</div>
+    <div class="col gap14">
+      <div class="card blue">
+        <div class="c-label">일급</div>
+        <div class="c-head" style="font-size:clamp(22px,2.5vw,32px)">
+          <span class="acc" style="color:#fff;font-size:inherit">20만원</span>
+          <span class="ann">박람회 종료 후 총액 일괄 지급 · 교통비 미포함</span>
         </div>
       </div>
-    </div>
-    <div class="right-panel">
-      <div class="ov-cards">
-        <div class="ov-card">
-          <div class="ov-num-col">01</div>
-          <div class="ov-body">
-            <div class="ov-cat">Mission · 할 일</div>
-            <div class="ov-main">시음 권유 → 제품 설명 → <strong>앱 가입 유도</strong></div>
-          </div>
+      <div class="g2">
+        <div class="card">
+          <div class="c-label">근무시간 · 목~토</div>
+          <div class="c-head">10:00 <span style="font-weight:400;color:var(--gray-400)">~</span> 18:00</div>
         </div>
-        <div class="ov-card c2">
-          <div class="ov-num-col">02</div>
-          <div class="ov-body">
-            <div class="ov-cat">Schedule · 일정</div>
-            <div class="ov-main">스포엑스 3/26~29 · 이후 <strong>거점 방문</strong></div>
-          </div>
-        </div>
-        <div class="ov-card c3">
-          <div class="ov-num-col">03</div>
-          <div class="ov-body">
-            <div class="ov-cat">Pay · 근무 조건</div>
-            <div class="ov-main">일급 <strong>20만원</strong> · 10:00~18:00 (일 ~16:00)</div>
-          </div>
+        <div class="card">
+          <div class="c-label">근무시간 · 일요일</div>
+          <div class="c-head">10:00 <span style="font-weight:400;color:var(--gray-400)">~</span> 16:00</div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- ================================================ SLIDE 02: 근무 조건 -->
-<div class="slide-shell" id="slide-2">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">WORK CONDITIONS</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">근무 조건</span>
-        </div>
-        <h1 class="title">근무<br>조건</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">일급·시간·복장 한눈에</h2>
-          <p class="body-text">모든 근무 조건을 정리했습니다.<br>박람회 종료 후 일괄 정산됩니다.</p>
-        </div>
-      </div>
-    </div>
-    <div class="right-panel">
-      <div class="cond-grid">
-        <div class="cond-c hi">
-          <div class="cond-k">일급</div>
-          <div class="cond-v">20만원</div>
-          <div class="cond-sub">박람회 종료 후 총액 일괄 지급</div>
-        </div>
-        <div class="cond-c">
-          <div class="cond-k">근무시간 · 목~토</div>
-          <div class="cond-v">10:00~18:00</div>
-        </div>
-        <div class="cond-c">
-          <div class="cond-k">근무시간 · 일요일</div>
-          <div class="cond-v">10:00~16:00</div>
-        </div>
-        <div class="cond-c wide">
-          <div class="cond-wide-inner">
-            <div class="cond-half">
-              <div class="cond-k">복장</div>
-              <div class="cond-v" style="font-size:clamp(12px,1.2vw,17px)">VRINK 유니폼 + 명찰</div>
-              <div class="cond-sub">유니폼·명찰 현장 지급</div>
-            </div>
-            <div class="cond-half">
-              <div class="cond-k">준비물</div>
-              <div class="cond-v" style="font-size:clamp(12px,1.2vw,17px)">편한 신발 + 물병</div>
-              <div class="cond-sub">교통비 별도 미지원</div>
-            </div>
+      <div class="card" style="padding:20px 28px;">
+        <div class="g2" style="gap:0">
+          <div style="padding-right:24px;border-right:1px solid var(--gray-100)">
+            <div class="c-label">복장</div>
+            <div class="c-head" style="font-size:clamp(14px,1.4vw,18px)">VRINK 유니폼 + 명찰</div>
+            <div class="c-body" style="margin-top:4px">유니폼·명찰 현장 지급</div>
+          </div>
+          <div style="padding-left:24px">
+            <div class="c-label">준비물</div>
+            <div class="c-head" style="font-size:clamp(14px,1.4vw,18px)">편한 신발 + 물병</div>
+            <div class="c-body" style="margin-top:4px">개인 지참</div>
           </div>
         </div>
       </div>
@@ -862,490 +389,224 @@ body::before {
   </div>
 </div>
 
-<!-- ================================================ SLIDE 03: 전체 일정 -->
-<div class="slide-shell" id="slide-3">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">SCHEDULE</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">전체 일정</span>
+<!-- ════════════════════════════════ SLIDE 03 · 전체 일정 ════ -->
+<div class="slide" id="s3">
+  <div class="sw">
+    <div class="eyebrow">Schedule</div>
+    <div class="s-title">전체 일정<span class="dim">2부 구성</span></div>
+    <div class="col gap14">
+      <div class="ph-card dk">
+        <div class="ph-head">
+          <span class="ph-tag">Part 01</span>
+          <span class="ph-name">스포엑스 박람회</span>
+          <span class="ph-date">3/26~29 · 코엑스 SS505</span>
         </div>
-        <h1 class="title">전체<br>일정</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">박람회 → 거점, 2부 구성</h2>
-          <p class="body-text">박람회 부스 운영 후 거점 헬스장을<br>순환 방문하는 2단계로 구성됩니다.</p>
+        <div class="ph-body">
+          <div class="ph-task"><div class="ph-dot"></div><span>부스 시음 안내 — 무료 시음 이벤트 운영</span></div>
+          <div class="ph-task"><div class="ph-dot"></div><span>VRINK 제품 기능 설명</span></div>
+          <div class="ph-task"><div class="ph-dot"></div><span>앱 가입 유도 및 연락처 수집</span></div>
         </div>
       </div>
-    </div>
-    <div class="right-panel">
-      <div class="ph-stack">
-        <div class="ph-card">
-          <div class="ph-head">
-            <span class="ph-tag">Part 01</span>
-            <span class="ph-name">스포엑스 박람회</span>
-            <span class="ph-date">3/26~29 · 코엑스 SS505</span>
-          </div>
-          <div class="ph-body">
-            <div class="ph-task"><div class="ph-dot"></div><span>부스 시음 안내 — 무료 시음 이벤트 운영</span></div>
-            <div class="ph-task"><div class="ph-dot"></div><span>VRINK 제품 기능 설명</span></div>
-            <div class="ph-task"><div class="ph-dot"></div><span>앱 가입 유도 및 연락처 수집</span></div>
-          </div>
+      <div class="ph-arrow">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 3v10M4 9l4 4 4-4" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="ph-card bl">
+        <div class="ph-head">
+          <span class="ph-tag">Part 02</span>
+          <span class="ph-name">거점 온보딩</span>
+          <span class="ph-date">박람회 이후 · 헬스장 순환</span>
         </div>
-        <div class="ph-connector">
-          <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 3v10M4 9l4 4 4-4" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="ph-card blue">
-          <div class="ph-head">
-            <span class="ph-tag">Part 02</span>
-            <span class="ph-name">거점 온보딩</span>
-            <span class="ph-date">박람회 이후 · 헬스장 순환</span>
-          </div>
-          <div class="ph-body">
-            <div class="ph-task"><div class="ph-dot"></div><span>알바 1명 + 본사 1명 동행 방문</span></div>
-            <div class="ph-task"><div class="ph-dot"></div><span>VRINK 기기 체험 유도</span></div>
-            <div class="ph-task"><div class="ph-dot"></div><span>방문 결과 매니저에게 보고</span></div>
-          </div>
+        <div class="ph-body">
+          <div class="ph-task"><div class="ph-dot"></div><span>알바 1명 + 본사 1명 동행 방문</span></div>
+          <div class="ph-task"><div class="ph-dot"></div><span>VRINK 기기 체험 유도</span></div>
+          <div class="ph-task"><div class="ph-dot"></div><span>방문 결과 매니저에게 보고</span></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ================================================ SLIDE 04: 하루 동선 -->
-<div class="slide-shell" id="slide-4">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">DAILY FLOW</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">하루 동선</span>
+<!-- ════════════════════════════════ SLIDE 04 · 하루 동선 ════ -->
+<div class="slide" id="s4">
+  <div class="sw">
+    <div class="eyebrow">Daily Flow</div>
+    <div class="s-title">하루 동선<span class="dim">09:45 집합 → 18:00 퇴근</span></div>
+    <div class="g22" style="align-items:start">
+      <div class="tl">
+        <div class="tl-row">
+          <div class="tl-t">09:45</div>
+          <div class="tl-a">집합 및 준비물 확인</div>
         </div>
-        <h1 class="title">하루<br>동선</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">09:45 집합 → 18:00 퇴근</h2>
-          <p class="body-text">일요일은 15:30 마감 후<br>16:00 퇴근입니다.</p>
+        <div class="tl-row">
+          <div class="tl-t">10:00</div>
+          <div class="tl-a">부스 세팅 완료 · 운영 시작</div>
         </div>
-      </div>
-    </div>
-    <div class="right-panel">
-      <div class="tflow">
-        <div class="trow">
-          <div class="ttime">09:45</div>
-          <div class="tactivity">집합 및 준비물 확인</div>
+        <div class="tl-row hi">
+          <div class="tl-t">10:00~17:30</div>
+          <div class="tl-a"><strong>시음 안내 운영</strong> — 점심·교대는 매니저 지시</div>
         </div>
-        <div class="trow">
-          <div class="ttime">10:00</div>
-          <div class="tactivity">부스 세팅 완료 · 운영 시작</div>
+        <div class="tl-row">
+          <div class="tl-t">17:30</div>
+          <div class="tl-a">마감 준비 시작</div>
         </div>
-        <div class="trow tmain">
-          <div class="ttime">10:00~17:30</div>
-          <div class="tactivity"><strong>시음 안내 운영</strong> — 점심·교대는 매니저 지시</div>
-        </div>
-        <div class="trow">
-          <div class="ttime">17:30</div>
-          <div class="tactivity">마감 준비 시작</div>
-        </div>
-        <div class="trow">
-          <div class="ttime">18:00</div>
-          <div class="tactivity">퇴근 (일요일: 15:30 마감 → 16:00 퇴근)</div>
+        <div class="tl-row">
+          <div class="tl-t">18:00</div>
+          <div class="tl-a">퇴근</div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- ================================================ SLIDE 05: 음료 6종 -->
-<div class="slide-shell" id="slide-5">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">DRINKS MENU</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">음료 소개</span>
+      <div class="col gap14">
+        <div class="card">
+          <div class="c-label">근무 시간</div>
+          <div class="c-head"><span class="acc">8시간</span></div>
+          <div class="c-body">목~토 기준<br>일요일은 6시간 (16:00 퇴근)</div>
         </div>
-        <h1 class="title">음료<br>6종</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">핵심 메뉴 설명</h2>
-          <div class="checks">
-            <div class="check-item">
-              <div class="check-icon">✓</div>
-              <span class="check-text">최대 3가지 조합 가능</span>
-            </div>
-            <div class="check-item">
-              <div class="check-icon">✓</div>
-              <span class="check-text">레몬 수는 단독 제공</span>
-            </div>
-            <div class="check-item">
-              <div class="check-icon">✓</div>
-              <span class="check-text">맛·농도·탄산 조절 가능</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="right-panel">
-      <div class="shots">
-        <div class="shot-c">
-          <div class="shot-bar energy"></div>
-          <div class="shot-c-inner">
-            <div class="shot-c-name">부스터 샷</div>
-            <div class="shot-c-desc">지친 몸을 깨우고 싶다면</div>
-            <div class="shot-c-tags">
-              <span class="shot-c-tag">타우린</span>
-              <span class="shot-c-tag">카페인</span>
-            </div>
-          </div>
-        </div>
-        <div class="shot-c">
-          <div class="shot-bar cut"></div>
-          <div class="shot-c-inner">
-            <div class="shot-c-name">커팅 샷</div>
-            <div class="shot-c-desc">지방 관리를 한다면</div>
-            <div class="shot-c-tags">
-              <span class="shot-c-tag">L-카르니틴</span>
-              <span class="shot-c-tag">녹차추출물</span>
-            </div>
-          </div>
-        </div>
-        <div class="shot-c">
-          <div class="shot-bar vit"></div>
-          <div class="shot-c-inner">
-            <div class="shot-c-name">비타민 샷</div>
-            <div class="shot-c-desc">하루 비타민을 채우고 싶다면</div>
-            <div class="shot-c-tags">
-              <span class="shot-c-tag">비타민B</span>
-              <span class="shot-c-tag">비타민C</span>
-            </div>
-          </div>
-        </div>
-        <div class="shot-c">
-          <div class="shot-bar relax"></div>
-          <div class="shot-c-inner">
-            <div class="shot-c-name">릴렉스 샷</div>
-            <div class="shot-c-desc">긴장을 완화하고 싶다면</div>
-            <div class="shot-c-tags">
-              <span class="shot-c-tag">L-테아닌</span>
-              <span class="shot-c-tag">타우린</span>
-            </div>
-          </div>
-        </div>
-        <div class="shot-c">
-          <div class="shot-bar amino"></div>
-          <div class="shot-c-inner">
-            <div class="shot-c-name">아미노 샷</div>
-            <div class="shot-c-desc">근육 운동을 한다면</div>
-            <div class="shot-c-tags">
-              <span class="shot-c-tag">아미노산 9종</span>
-              <span class="shot-c-tag">타우린</span>
-            </div>
-          </div>
-        </div>
-        <div class="shot-c is-lemon">
-          <div class="shot-bar lem"></div>
-          <div class="shot-c-inner">
-            <div class="shot-c-name">레몬 수</div>
-            <div class="shot-c-desc">상쾌하게 한 잔</div>
-            <div class="shot-c-tags">
-              <span class="shot-c-tag">레몬</span>
-              <span class="shot-c-tag">단독 메뉴</span>
-            </div>
-          </div>
+        <div class="card" style="background:var(--blue-50)">
+          <div class="c-label" style="color:var(--blue)">핵심</div>
+          <div class="c-head" style="font-size:clamp(13px,1.2vw,16px)">점심·교대 시간은<br>매니저 지시를 따르세요</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ================================================ SLIDE 06: 시음 가이드 -->
-<div class="slide-shell" id="slide-6">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">TASTING GUIDE</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">시음 가이드</span>
+<!-- ════════════════════════════════ SLIDE 05 · 음료 6종 ════ -->
+<div class="slide" id="s5">
+  <div class="sw">
+    <div class="eyebrow">Drinks Menu</div>
+    <div class="s-title">음료 6종<span class="dim">최대 3가지 조합 · 레몬 수는 단독</span></div>
+    <div class="g3">
+      <div class="shot">
+        <div class="shot-bar e"></div>
+        <div class="shot-in">
+          <div class="s-name">부스터 샷</div>
+          <div class="s-desc">지친 몸을 깨우고 싶다면</div>
+          <div class="s-tags"><span class="s-tag">타우린</span><span class="s-tag">카페인</span></div>
         </div>
-        <h1 class="title">제품 설명<br>&amp; 시음<br>가이드</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">30초로 전달하는 스크립트</h2>
-          <p class="body-text">자연스럽게 말을 걸고,<br>고객이 직접 선택하게 해주세요.</p>
+      </div>
+      <div class="shot">
+        <div class="shot-bar ct"></div>
+        <div class="shot-in">
+          <div class="s-name">커팅 샷</div>
+          <div class="s-desc">지방 관리를 한다면</div>
+          <div class="s-tags"><span class="s-tag">L-카르니틴</span><span class="s-tag">녹차추출물</span></div>
+        </div>
+      </div>
+      <div class="shot">
+        <div class="shot-bar v"></div>
+        <div class="shot-in">
+          <div class="s-name">비타민 샷</div>
+          <div class="s-desc">하루 비타민을 채우고 싶다면</div>
+          <div class="s-tags"><span class="s-tag">비타민B</span><span class="s-tag">비타민C</span></div>
+        </div>
+      </div>
+      <div class="shot">
+        <div class="shot-bar r"></div>
+        <div class="shot-in">
+          <div class="s-name">릴렉스 샷</div>
+          <div class="s-desc">긴장을 완화하고 싶다면</div>
+          <div class="s-tags"><span class="s-tag">L-테아닌</span><span class="s-tag">타우린</span></div>
+        </div>
+      </div>
+      <div class="shot">
+        <div class="shot-bar am"></div>
+        <div class="shot-in">
+          <div class="s-name">아미노 샷</div>
+          <div class="s-desc">근육 운동을 한다면</div>
+          <div class="s-tags"><span class="s-tag">아미노산 9종</span><span class="s-tag">타우린</span></div>
+        </div>
+      </div>
+      <div class="shot is-lem">
+        <div class="shot-bar l"></div>
+        <div class="shot-in">
+          <div class="s-name">레몬 수</div>
+          <div class="s-desc">상쾌하게 한 잔 · 단독 메뉴</div>
+          <div class="s-tags"><span class="s-tag">레몬</span><span class="s-tag">단독</span></div>
         </div>
       </div>
     </div>
-    <div class="right-panel">
+  </div>
+</div>
+
+<!-- ════════════════════════════════ SLIDE 06 · 시음 가이드 ════ -->
+<div class="slide" id="s6">
+  <div class="sw">
+    <div class="eyebrow">Tasting Guide</div>
+    <div class="s-title">제품 설명 &amp; 시음 가이드<span class="dim">30초 스크립트</span></div>
+    <div class="col gap14">
       <div class="qcard">
         <div class="qmark">"</div>
         <div class="qtext">안녕하세요! VRINK 음료 무료 시음 이벤트예요. 운동하시는 분들을 위한 기능성 샷 음료인데요, 원하시는 효능을 직접 골라서 만들어드려요. 한 잔 드셔보시겠어요?</div>
       </div>
-      <div class="dsteps">
-        <div class="dstep">
-          <div class="dnum">01</div>
-          <div class="dlabel">시작하기</div>
-          <div class="dsub">버튼 터치</div>
-        </div>
-        <div class="darrow">→</div>
-        <div class="dstep">
-          <div class="dnum">02</div>
-          <div class="dlabel">기능 선택</div>
-          <div class="dsub">샷 고르기</div>
-        </div>
-        <div class="darrow">→</div>
-        <div class="dstep">
-          <div class="dnum">03</div>
-          <div class="dlabel">옵션 설정</div>
-          <div class="dsub">맛·농도·탄산</div>
-        </div>
-        <div class="darrow">→</div>
-        <div class="dstep">
-          <div class="dnum">04</div>
-          <div class="dlabel">출수</div>
-          <div class="dsub">5~10초 대기</div>
+      <div class="card" style="padding:20px 24px">
+        <div class="c-label" style="margin-bottom:14px">디스펜서 조작 순서</div>
+        <div class="dsteps">
+          <div class="dstep"><div class="dnum">01</div><div class="dlabel">시작하기</div><div class="dsub">버튼 터치</div></div>
+          <div class="darrow">→</div>
+          <div class="dstep"><div class="dnum">02</div><div class="dlabel">기능 선택</div><div class="dsub">샷 고르기</div></div>
+          <div class="darrow">→</div>
+          <div class="dstep"><div class="dnum">03</div><div class="dlabel">옵션 설정</div><div class="dsub">맛·농도·탄산</div></div>
+          <div class="darrow">→</div>
+          <div class="dstep"><div class="dnum">04</div><div class="dlabel">출수</div><div class="dsub">5~10초 대기</div></div>
         </div>
       </div>
-      <div class="callout-warn">⚠ 기기 이상 시: 전원 재시작 → 그래도 안 되면 매니저 즉시 연락</div>
+      <div class="cw">⚠ 기기 이상 시: 전원 재시작 → 그래도 안 되면 매니저 즉시 연락</div>
     </div>
   </div>
 </div>
 
-<!-- ================================================ SLIDE 07: 회원 등록 플로우 -->
-<div class="slide-shell" id="slide-7">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">REGISTRATION</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">회원 등록</span>
-        </div>
-        <h1 class="title">회원<br>등록<br>플로우</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">QR → 앱 → 가입 → 연락처</h2>
-          <p class="body-text">가입을 강요하지 말고,<br>자연스럽게 안내해 주세요.</p>
-        </div>
-      </div>
-    </div>
-    <div class="right-panel">
-      <div class="rflow">
-        <div class="rstep">
-          <div class="rnum">01</div>
-          <div class="rlabel">QR 스캔</div>
-          <div class="rsub">스탠드 QR 또는<br>직접 보여주기</div>
-        </div>
-        <div class="rarrow">→</div>
-        <div class="rstep">
-          <div class="rnum">02</div>
-          <div class="rlabel">앱 다운로드</div>
-          <div class="rsub">스토어에서<br>VRINK 검색</div>
-        </div>
-        <div class="rarrow">→</div>
-        <div class="rstep">
-          <div class="rnum">03</div>
-          <div class="rlabel">가입 완료</div>
-          <div class="rsub">가입 화면까지<br>안내</div>
-        </div>
-        <div class="rarrow">→</div>
-        <div class="rstep">
-          <div class="rnum">04</div>
-          <div class="rlabel">연락처 수집</div>
-          <div class="rsub">명단 기록지에<br>기재</div>
+<!-- ════════════════════════════════ SLIDE 07 · 회원 등록 ════ -->
+<div class="slide" id="s7">
+  <div class="sw">
+    <div class="eyebrow">Registration</div>
+    <div class="s-title">회원 등록 플로우<span class="dim">QR → 앱 → 가입 → 연락처</span></div>
+    <div class="col gap14">
+      <div class="card" style="padding:22px 24px">
+        <div class="rflow">
+          <div class="rstep"><div class="rnum">01</div><div class="rlabel">QR 스캔</div><div class="rsub">스탠드 QR 또는<br>직접 보여주기</div></div>
+          <div class="rarrow">→</div>
+          <div class="rstep"><div class="rnum">02</div><div class="rlabel">앱 다운로드</div><div class="rsub">스토어에서<br>VRINK 검색</div></div>
+          <div class="rarrow">→</div>
+          <div class="rstep"><div class="rnum">03</div><div class="rlabel">가입 완료</div><div class="rsub">가입 화면까지<br>안내</div></div>
+          <div class="rarrow">→</div>
+          <div class="rstep"><div class="rnum">04</div><div class="rlabel">연락처 수집</div><div class="rsub">명단 기록지에<br>기재</div></div>
         </div>
       </div>
-      <div class="callout-info">거부 시: "나중에 편하실 때 가입해 보세요." — 절대 강요하지 마세요.</div>
+      <div class="ci">거부 시: "나중에 편하실 때 가입해 보세요." — 절대 강요하지 마세요.</div>
     </div>
   </div>
 </div>
 
-<!-- ================================================ SLIDE 08: 거점 방문 가이드 -->
-<div class="slide-shell" id="slide-8">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">FIELD VISIT</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">거점 방문</span>
-        </div>
-        <h1 class="title">거점<br>방문<br>가이드</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">헬스장 현장에서 해야 할 일</h2>
-          <div class="checks">
-            <div class="check-item">
-              <div class="check-icon">✓</div>
-              <span class="check-text">거점 주소 확인</span>
-            </div>
-            <div class="check-item">
-              <div class="check-icon">✓</div>
-              <span class="check-text">담당자 이름 확인</span>
-            </div>
-            <div class="check-item">
-              <div class="check-icon">✓</div>
-              <span class="check-text">QR 스티커 지참</span>
-            </div>
-            <div class="check-item">
-              <div class="check-icon">✓</div>
-              <span class="check-text">명단 기록지 지참</span>
-            </div>
+<!-- ════════════════════════════════ SLIDE 08 · 거점 방문 ════ -->
+<div class="slide" id="s8">
+  <div class="sw">
+    <div class="eyebrow">Field Visit</div>
+    <div class="s-title">거점 방문 가이드<span class="dim">알바 1명 + 본사 1명 동행</span></div>
+    <div class="g22" style="align-items:start">
+      <div class="col gap14">
+        <div class="stepc"><div class="stepc-nc"><span class="stepc-nt">01</span></div><div class="stepc-bd"><span class="stepc-badge"><span class="stepc-bt">도착 인사</span></span><span class="stepc-dt">담당자 확인 후 소개</span></div></div>
+        <div class="stepc"><div class="stepc-nc"><span class="stepc-nt">02</span></div><div class="stepc-bd"><span class="stepc-badge"><span class="stepc-bt">기기 소개</span></span><span class="stepc-dt">VRINK 기기 위치 및 사용법</span></div></div>
+        <div class="stepc hi"><div class="stepc-nc"><span class="stepc-nt">03</span></div><div class="stepc-bd"><span class="stepc-badge"><span class="stepc-bt">시음 체험</span></span><span class="stepc-dt"><strong>회원에게 직접 시음 권유</strong> — 핵심 단계</span></div></div>
+        <div class="stepc"><div class="stepc-nc"><span class="stepc-nt">04</span></div><div class="stepc-bd"><span class="stepc-badge"><span class="stepc-bt">앱 가입</span></span><span class="stepc-dt">가입 안내 및 연락처 수집</span></div></div>
+        <div class="stepc"><div class="stepc-nc"><span class="stepc-nt">05</span></div><div class="stepc-bd"><span class="stepc-badge"><span class="stepc-bt">결과 보고</span></span><span class="stepc-dt">방문 후 매니저에게 보고</span></div></div>
+      </div>
+      <div class="card">
+        <div class="c-label">방문 전 체크</div>
+        <div class="col gap14" style="gap:10px;margin-top:4px">
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--gray-700)">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--blue-50);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--blue);font-weight:600">✓</div>
+            거점 주소 확인
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="right-panel">
-      <div class="step-card">
-        <div class="step-num-col"><span class="step-num-text">01</span></div>
-        <div class="step-body">
-          <span class="step-badge"><span class="step-badge-text">도착 인사</span></span>
-          <span class="step-desc">담당자 확인 후 소개</span>
-        </div>
-      </div>
-      <div class="step-card">
-        <div class="step-num-col"><span class="step-num-text">02</span></div>
-        <div class="step-body">
-          <span class="step-badge"><span class="step-badge-text">기기 소개</span></span>
-          <span class="step-desc">VRINK 기기 위치 및 사용법</span>
-        </div>
-      </div>
-      <div class="step-card active">
-        <div class="step-num-col"><span class="step-num-text">03</span></div>
-        <div class="step-body">
-          <span class="step-badge"><span class="step-badge-text">시음 체험</span></span>
-          <span class="step-desc"><strong>회원에게 직접 시음 권유</strong> — 핵심 단계</span>
-        </div>
-      </div>
-      <div class="step-card">
-        <div class="step-num-col"><span class="step-num-text">04</span></div>
-        <div class="step-body">
-          <span class="step-badge"><span class="step-badge-text">앱 가입</span></span>
-          <span class="step-desc">가입 안내 및 연락처 수집</span>
-        </div>
-      </div>
-      <div class="step-card">
-        <div class="step-num-col"><span class="step-num-text">05</span></div>
-        <div class="step-body">
-          <span class="step-badge"><span class="step-badge-text">결과 보고</span></span>
-          <span class="step-desc">방문 후 매니저에게 보고</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ================================================ SLIDE 09: B2B 문의 대응 -->
-<div class="slide-shell" id="slide-9">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">B2B RESPONSE</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">B2B 대응</span>
-        </div>
-        <h1 class="title">B2B<br>문의<br>대응</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">원장님이 말 걸어오면</h2>
-          <p class="body-text">비용·가격·계약 조건은<br>절대 직접 답변하지 마세요.</p>
-        </div>
-      </div>
-    </div>
-    <div class="right-panel">
-      <div class="b2b-box">
-        <div class="b2b-box-label">이런 말이 들리면 B2B 신호</div>
-        <div class="b2b-signal">
-          <div class="b2b-dot"></div>
-          <span class="b2b-q">기기 도입하고 싶은데요</span>
-        </div>
-        <div class="b2b-signal">
-          <div class="b2b-dot"></div>
-          <span class="b2b-q">계약 조건이 어떻게 되나요?</span>
-        </div>
-        <div class="b2b-signal">
-          <div class="b2b-dot"></div>
-          <span class="b2b-q">저 헬스장 원장인데요</span>
-        </div>
-      </div>
-      <div class="step-card">
-        <div class="step-num-col"><span class="step-num-text">01</span></div>
-        <div class="step-body">
-          <span class="step-badge"><span class="step-badge-text">연락처 수집</span></span>
-          <span class="step-desc">이름 + 전화번호만 받기</span>
-        </div>
-      </div>
-      <div class="step-card active">
-        <div class="step-num-col"><span class="step-num-text">02</span></div>
-        <div class="step-body">
-          <span class="step-badge"><span class="step-badge-text">매니저 연결</span></span>
-          <span class="step-desc"><strong>즉시 매니저에게 연결</strong></span>
-        </div>
-      </div>
-      <div class="script-box">"감사합니다! 연락처 남겨주시면 담당자가 자세히 안내드릴게요."</div>
-      <div class="callout-warn">⚠ 절대 금지: 비용·가격·계약 조건 직접 답변</div>
-    </div>
-  </div>
-</div>
-
-<!-- ================================================ SLIDE 10: FAQ -->
-<div class="slide-shell" id="slide-10">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">FAQ</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">자주 묻는 질문</span>
-        </div>
-        <h1 class="title">자주<br>묻는<br>질문</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">고객이 물어보는 것들</h2>
-          <p class="body-text">모르면 솔직하게 말하고<br>매니저에게 확인해 주세요.</p>
-        </div>
-      </div>
-    </div>
-    <div class="right-panel">
-      <div class="faq-list">
-        <div class="faq-row">
-          <span class="faq-q-label">Q</span>
-          <div class="faq-content">
-            <div class="faq-question">이거 뭐예요?</div>
-            <div class="faq-answer">운동하시는 분들을 위한 건강 음료예요. 6가지 기능성 샷을 직접 골라 드실 수 있어요.</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--gray-700)">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--blue-50);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--blue);font-weight:600">✓</div>
+            담당자 이름 확인
           </div>
-        </div>
-        <div class="faq-row">
-          <span class="faq-q-label">Q</span>
-          <div class="faq-content">
-            <div class="faq-question">카페인 있어요?</div>
-            <div class="faq-answer">부스터 샷에만 카페인이 들어있어요. 카페인 없는 메뉴도 많으니 걱정 마세요.</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--gray-700)">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--blue-50);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--blue);font-weight:600">✓</div>
+            QR 스티커 지참
           </div>
-        </div>
-        <div class="faq-row">
-          <span class="faq-q-label">Q</span>
-          <div class="faq-content">
-            <div class="faq-question">칼로리는 얼마예요?</div>
-            <div class="faq-answer">샷마다 다르지만 한 잔 기준 매우 낮아요. 정확한 수치는 성분표 확인해 드릴게요.</div>
-          </div>
-        </div>
-        <div class="faq-row">
-          <span class="faq-q-label">Q</span>
-          <div class="faq-content">
-            <div class="faq-question">가격이 얼마예요?</div>
-            <div class="faq-answer">박람회: "오늘은 무료 시음이에요!" / 거점: "앱 가입 후 이용 가능해요."</div>
-          </div>
-        </div>
-        <div class="faq-row">
-          <span class="faq-q-label">Q</span>
-          <div class="faq-content">
-            <div class="faq-question">알레르기 성분 있어요?</div>
-            <div class="faq-answer">성분표 확인해 드릴게요. 정확하지 않으면 매니저에게 바로 확인해 드릴게요.</div>
-          </div>
-        </div>
-        <div class="faq-row">
-          <span class="faq-q-label">Q</span>
-          <div class="faq-content">
-            <div class="faq-question">어디서 마실 수 있어요?</div>
-            <div class="faq-answer">앱에서 가까운 제휴 헬스장을 확인하실 수 있어요.</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--gray-700)">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--blue-50);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--blue);font-weight:600">✓</div>
+            명단 기록지 지참
           </div>
         </div>
       </div>
@@ -1353,141 +614,128 @@ body::before {
   </div>
 </div>
 
-<!-- ================================================ SLIDE 11: 상황별 대처 -->
-<div class="slide-shell" id="slide-11">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">SITUATION GUIDE</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">상황 대처</span>
+<!-- ════════════════════════════════ SLIDE 09 · B2B 대응 ════ -->
+<div class="slide" id="s9">
+  <div class="sw">
+    <div class="eyebrow">B2B Response</div>
+    <div class="s-title">B2B 문의 대응<span class="dim">원장님이 말 걸어오면</span></div>
+    <div class="g22" style="align-items:start">
+      <div class="col gap14">
+        <div class="b2b-box">
+          <div class="b2b-lbl">이런 말이 들리면 B2B 신호</div>
+          <div class="b2b-row"><div class="b2b-dot"></div><span class="b2b-q">기기 도입하고 싶은데요</span></div>
+          <div class="b2b-row"><div class="b2b-dot"></div><span class="b2b-q">계약 조건이 어떻게 되나요?</span></div>
+          <div class="b2b-row"><div class="b2b-dot"></div><span class="b2b-q">저 헬스장 원장인데요</span></div>
         </div>
-        <h1 class="title">상황별<br>대처</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">예상치 못한 상황에서</h2>
-          <p class="body-text">혼자 해결하려 하지 말고<br>매니저에게 빠르게 알려주세요.</p>
-        </div>
+        <div class="stepc"><div class="stepc-nc"><span class="stepc-nt">01</span></div><div class="stepc-bd"><span class="stepc-badge"><span class="stepc-bt">연락처 수집</span></span><span class="stepc-dt">이름 + 전화번호만 받기</span></div></div>
+        <div class="stepc hi"><div class="stepc-nc"><span class="stepc-nt">02</span></div><div class="stepc-bd"><span class="stepc-badge"><span class="stepc-bt">매니저 연결</span></span><span class="stepc-dt"><strong>즉시 매니저에게 연결</strong></span></div></div>
       </div>
-    </div>
-    <div class="right-panel">
-      <div class="sit-cards">
-        <div class="sitc urg">
-          <div class="sitc-head">
-            <div class="sitc-dot"></div>
-            <div class="sitc-name">알레르기 반응</div>
-          </div>
-          <div class="sitc-resp">즉시 매니저 + 현장 의료팀 호출</div>
+      <div class="col gap14">
+        <div class="qcard">
+          <div class="qmark">"</div>
+          <div class="qtext">감사합니다! 연락처 남겨주시면 담당자가 자세히 안내드릴게요.</div>
         </div>
-        <div class="sitc urg">
-          <div class="sitc-head">
-            <div class="sitc-dot"></div>
-            <div class="sitc-name">고객 컴플레인</div>
-          </div>
-          <div class="sitc-resp">혼자 대응 금지 → 매니저 호출</div>
-        </div>
-        <div class="sitc wrn">
-          <div class="sitc-head">
-            <div class="sitc-dot"></div>
-            <div class="sitc-name">기기 고장</div>
-          </div>
-          <div class="sitc-resp">전원 재시작 → 안 되면 매니저 즉시 연락</div>
-        </div>
-        <div class="sitc wrn">
-          <div class="sitc-head">
-            <div class="sitc-dot"></div>
-            <div class="sitc-name">재고·원료 부족</div>
-          </div>
-          <div class="sitc-resp">매니저 바로 알림, 남은 메뉴로 안내</div>
-        </div>
-        <div class="sitc nrm">
-          <div class="sitc-head">
-            <div class="sitc-dot"></div>
-            <div class="sitc-name">인파 몰림</div>
-          </div>
-          <div class="sitc-resp">줄 안내, 대기 시간 고지, 추가 인원 요청</div>
-        </div>
-        <div class="sitc base" style="background:#fff;border-color:var(--gray-200);">
-          <div class="sitc-head">
-            <div class="sitc-dot" style="background:var(--gray-400);"></div>
-            <div class="sitc-name">몸이 안 좋을 때</div>
-          </div>
-          <div class="sitc-resp">참지 말고 자리 교체 요청</div>
+        <div class="cw">⚠ 절대 금지: 비용·가격·계약 조건 직접 답변</div>
+        <div class="card" style="background:var(--gray-900);padding:20px 24px">
+          <div class="c-label" style="color:rgba(255,255,255,.45)">왜 직접 답변하면 안 되나요?</div>
+          <div class="c-head" style="color:#fff;font-size:clamp(12px,1.1vw,15px);font-weight:400;line-height:1.6">가격·조건은 본사에서 직접 협의해야 합니다. 잘못된 정보 전달로 계약에 차질이 생길 수 있어요.</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ================================================ SLIDE 12: 행동 지침 & 긴급 연락처 -->
-<div class="slide-shell" id="slide-12">
-  <div class="inner">
-    <div class="left-panel">
-      <div class="left-content">
-        <div class="section-label">
-          <span class="label-en">CONDUCT GUIDE</span>
-          <span class="label-sep">|</span>
-          <span class="label-ko">행동 지침</span>
-        </div>
-        <h1 class="title">행동<br>지침</h1>
-        <div class="divider-block">
-          <h2 class="subtitle">기본 규칙 + 긴급 연락처</h2>
-          <p class="body-text">기본을 지키면 모든 상황이<br>자연스럽게 해결됩니다.</p>
-        </div>
+<!-- ════════════════════════════════ SLIDE 10 · FAQ ════ -->
+<div class="slide" id="s10">
+  <div class="sw">
+    <div class="eyebrow">FAQ</div>
+    <div class="s-title">자주 묻는 질문<span class="dim">모르면 솔직하게 · 매니저 확인</span></div>
+    <div class="card" style="padding:8px 32px">
+      <div class="faq-row">
+        <div class="faq-q">Q</div>
+        <div><div class="faq-qt">이거 뭐예요?</div><div class="faq-at">운동하시는 분들을 위한 건강 음료예요. 6가지 기능성 샷을 직접 골라 드실 수 있어요.</div></div>
+      </div>
+      <div class="faq-row">
+        <div class="faq-q">Q</div>
+        <div><div class="faq-qt">카페인 있어요?</div><div class="faq-at">부스터 샷에만 카페인이 들어있어요. 카페인 없는 메뉴도 많으니 걱정 마세요.</div></div>
+      </div>
+      <div class="faq-row">
+        <div class="faq-q">Q</div>
+        <div><div class="faq-qt">칼로리는 얼마예요?</div><div class="faq-at">샷마다 다르지만 한 잔 기준 매우 낮아요. 정확한 수치는 성분표 확인해 드릴게요.</div></div>
+      </div>
+      <div class="faq-row">
+        <div class="faq-q">Q</div>
+        <div><div class="faq-qt">가격이 얼마예요?</div><div class="faq-at">박람회: "오늘은 무료 시음이에요!" / 거점: "앱 가입 후 이용 가능해요."</div></div>
+      </div>
+      <div class="faq-row">
+        <div class="faq-q">Q</div>
+        <div><div class="faq-qt">알레르기 성분 있어요?</div><div class="faq-at">성분표 확인해 드릴게요. 정확하지 않으면 매니저에게 바로 확인해 드릴게요.</div></div>
+      </div>
+      <div class="faq-row">
+        <div class="faq-q">Q</div>
+        <div><div class="faq-qt">어디서 마실 수 있어요?</div><div class="faq-at">앱에서 가까운 제휴 헬스장을 확인하실 수 있어요.</div></div>
       </div>
     </div>
-    <div class="right-panel">
-      <div class="rules-g">
-        <div class="rulec ok">
-          <div class="rulec-badge">✓</div>
-          <span class="rulec-text">유니폼 착용 + 명찰 패용 필수</span>
-        </div>
-        <div class="rulec ok">
-          <div class="rulec-badge">✓</div>
-          <span class="rulec-text">고객 응대 시 밝은 표정과 적극적 태도</span>
-        </div>
-        <div class="rulec ok">
-          <div class="rulec-badge">✓</div>
-          <span class="rulec-text">음료 조작 전후 손 위생 관리</span>
-        </div>
-        <div class="rulec ok">
-          <div class="rulec-badge">✓</div>
-          <span class="rulec-text">근무 중 SNS 게시는 허가 콘텐츠만</span>
-        </div>
-        <div class="rulec no">
-          <div class="rulec-badge">✗</div>
-          <span class="rulec-text">고객과 개인 연락처 교환 금지</span>
-        </div>
-        <div class="rulec no">
-          <div class="rulec-badge">✗</div>
-          <span class="rulec-text">가격·계약 조건 임의 안내 금지</span>
-        </div>
-        <div class="rulec no" style="grid-column: 1 / -1;">
-          <div class="rulec-badge">✗</div>
-          <span class="rulec-text">무단 이탈 및 자리 이동 금지</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ SLIDE 11 · 상황별 대처 ════ -->
+<div class="slide" id="s11">
+  <div class="sw">
+    <div class="eyebrow">Situation Guide</div>
+    <div class="s-title">상황별 대처<span class="dim">혼자 해결하지 말고 매니저에게</span></div>
+    <div class="sitg">
+      <div class="sitc urg">
+        <div class="sitc-hd"><div class="sitc-dot"></div><div class="sitc-name">알레르기 반응</div></div>
+        <div class="sitc-resp">즉시 매니저 + 현장 의료팀 호출</div>
+      </div>
+      <div class="sitc urg">
+        <div class="sitc-hd"><div class="sitc-dot"></div><div class="sitc-name">고객 컴플레인</div></div>
+        <div class="sitc-resp">혼자 대응 금지 → 매니저 호출</div>
+      </div>
+      <div class="sitc wrn">
+        <div class="sitc-hd"><div class="sitc-dot"></div><div class="sitc-name">기기 고장</div></div>
+        <div class="sitc-resp">전원 재시작 → 안 되면 매니저 즉시 연락</div>
+      </div>
+      <div class="sitc wrn">
+        <div class="sitc-hd"><div class="sitc-dot"></div><div class="sitc-name">재고·원료 부족</div></div>
+        <div class="sitc-resp">매니저 바로 알림, 남은 메뉴로 안내</div>
+      </div>
+      <div class="sitc nrm">
+        <div class="sitc-hd"><div class="sitc-dot"></div><div class="sitc-name">인파 몰림</div></div>
+        <div class="sitc-resp">줄 안내, 대기 시간 고지, 추가 인원 요청</div>
+      </div>
+      <div class="sitc bas">
+        <div class="sitc-hd"><div class="sitc-dot"></div><div class="sitc-name">몸이 안 좋을 때</div></div>
+        <div class="sitc-resp">참지 말고 자리 교체 요청</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ SLIDE 12 · 행동 지침 ════ -->
+<div class="slide" id="s12">
+  <div class="sw">
+    <div class="eyebrow">Conduct Guide</div>
+    <div class="s-title">행동 지침 &amp; 긴급 연락처</div>
+    <div class="col gap14">
+      <div class="card" style="padding:20px 24px">
+        <div class="c-label" style="margin-bottom:12px">행동 지침</div>
+        <div class="rulesg">
+          <div class="rulec ok"><div class="rulec-b">✓</div><span class="rulec-t">유니폼 착용 + 명찰 패용 필수</span></div>
+          <div class="rulec ok"><div class="rulec-b">✓</div><span class="rulec-t">고객 응대 시 밝은 표정과 적극적 태도</span></div>
+          <div class="rulec ok"><div class="rulec-b">✓</div><span class="rulec-t">음료 조작 전후 손 위생 관리</span></div>
+          <div class="rulec ok"><div class="rulec-b">✓</div><span class="rulec-t">SNS 게시는 허가 콘텐츠만</span></div>
+          <div class="rulec no"><div class="rulec-b">✗</div><span class="rulec-t">고객과 개인 연락처 교환 금지</span></div>
+          <div class="rulec no"><div class="rulec-b">✗</div><span class="rulec-t">가격·계약 조건 임의 안내 금지</span></div>
+          <div class="rulec no" style="grid-column:1/-1"><div class="rulec-b">✗</div><span class="rulec-t">무단 이탈 및 자리 이동 금지</span></div>
         </div>
       </div>
-      <div class="contacts-g">
-        <div class="contact-cc">
-          <div class="contact-cc-role">현장 매니저</div>
-          <div class="contact-cc-name"><span class="cp">담당자명 확인 후 기입</span></div>
-          <div class="contact-cc-num"><span class="cp">010-XXXX-XXXX</span></div>
-        </div>
-        <div class="contact-cc">
-          <div class="contact-cc-role">본사 담당자</div>
-          <div class="contact-cc-name"><span class="cp">담당자명 확인 후 기입</span></div>
-          <div class="contact-cc-num"><span class="cp">010-XXXX-XXXX</span></div>
-        </div>
-        <div class="contact-cc">
-          <div class="contact-cc-role">응급 / 의료팀</div>
-          <div class="contact-cc-name">코엑스 안내데스크</div>
-          <div class="contact-cc-num"><span class="cp">내선 확인 후 기입</span></div>
-        </div>
-        <div class="contact-cc">
-          <div class="contact-cc-role">일반 응급</div>
-          <div class="contact-cc-name">119 · 112</div>
-          <div class="contact-cc-num">119 · 112</div>
-        </div>
+      <div class="contactg">
+        <div class="contactc"><div class="cc-role">현장 매니저</div><div class="cc-name"><span class="cp">담당자명 기입</span></div><div class="cc-num"><span class="cp">010-XXXX-XXXX</span></div></div>
+        <div class="contactc"><div class="cc-role">본사 담당자</div><div class="cc-name"><span class="cp">담당자명 기입</span></div><div class="cc-num"><span class="cp">010-XXXX-XXXX</span></div></div>
+        <div class="contactc"><div class="cc-role">응급 / 의료팀</div><div class="cc-name">코엑스 안내데스크</div><div class="cc-num"><span class="cp">내선 기입</span></div></div>
+        <div class="contactc"><div class="cc-role">일반 응급</div><div class="cc-name">119 · 112</div><div class="cc-num">119 · 112</div></div>
       </div>
     </div>
   </div>
@@ -1495,35 +743,35 @@ body::before {
 
 <!-- Navigation -->
 <div class="nav-bar">
-  <button class="nav-btn" onclick="prevSlide()">←</button>
-  <span class="nav-label" id="navLabel">01 / 13</span>
-  <button class="nav-btn" onclick="nextSlide()">→</button>
+  <button class="nav-btn" onclick="prev()">←</button>
+  <span class="nav-lbl" id="nlbl">01 / 13</span>
+  <button class="nav-btn" onclick="next()">→</button>
 </div>
-
-<div class="page-num" id="pageNum">01 / 13</div>
+<div class="page-num" id="pnum">01 / 13</div>
 
 <script>
-let current = 0;
+let cur = 0;
 const total = 13;
-const slides = document.querySelectorAll('.slide-shell');
+const slides = document.querySelectorAll('.slide');
 
-function showSlide(n) {
+function show(n) {
   slides.forEach((s, i) => s.classList.toggle('active', i === n));
-  document.getElementById('navLabel').textContent =
-    String(n + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
-  document.getElementById('pageNum').textContent =
-    String(n + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+  const label = String(n + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+  document.getElementById('nlbl').textContent = label;
+  document.getElementById('pnum').textContent = label;
 }
-
-function nextSlide() { if (current < total - 1) { current++; showSlide(current); } }
-function prevSlide() { if (current > 0) { current--; showSlide(current); } }
+function next() { if (cur < total - 1) show(++cur); }
+function prev() { if (cur > 0) show(--cur); }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight') nextSlide();
-  if (e.key === 'ArrowLeft') prevSlide();
+  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    if (e.key === 'ArrowRight') next();
+    else prev();
+  }
 });
 
-showSlide(0);
+show(0);
 </script>
 </body>
 </html>
