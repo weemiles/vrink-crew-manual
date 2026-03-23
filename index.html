@@ -768,7 +768,7 @@ body.edit-mode .fab-actions{display:flex}
         <tr><th>교통비</th><td>별도 지원 없음</td></tr>
         <tr><th>정산</th><td>박람회 종료 후 총액 일괄 지급</td></tr>
         <tr><th>근무시간</th><td>목~토 10~18시 / 일 10~16시</td></tr>
-        <tr><th>복장</th><td>VRINK 유니폼 + 명찰 <span style="color:var(--subtle)">(지급)</span></td></tr>
+        <tr><th>복장</th><td>VRINK 유니폼</td></tr>
         <tr><th>준비물</th><td>편한 신발, 개인 물병</td></tr>
       </table>
     </section>
@@ -901,6 +901,51 @@ body.edit-mode .fab-actions{display:flex}
       <div class="eyebrow">30초 스크립트</div>
       <div class="script-box">"안녕하세요! VRINK 음료 무료 시음 이벤트예요. 운동하시는 분들을 위한 기능성 샷 음료인데요, 원하시는 효능을 직접 골라서 만들어드려요. 한 잔 드셔보시겠어요?"</div>
 
+      <div class="sub-label" style="margin-top:28px">음료별 현장 설명 스크립트</div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px">
+        <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-weight:600;font-size:14px;margin-bottom:6px">부스터 샷</div>
+          <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--body);line-height:1.8">
+            <li>피로할 때 빠르게 에너지 올려주는 음료입니다.</li>
+            <li>카페인과 타우린이 들어 있어서 집중력과 각성 효과를 줍니다.</li>
+          </ul>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-weight:600;font-size:14px;margin-bottom:6px">커팅 샷</div>
+          <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--body);line-height:1.8">
+            <li>지방 관리나 다이어트에 도움 주는 음료입니다.</li>
+            <li>L-카르니틴과 녹차추출물이 지방 대사에 도움을 줍니다.</li>
+          </ul>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-weight:600;font-size:14px;margin-bottom:6px">비타민 샷</div>
+          <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--body);line-height:1.8">
+            <li>하루 필요한 비타민을 간편하게 채우는 음료입니다.</li>
+            <li>비타민 B, C가 들어 있어서 피로 회복과 면역에 도움됩니다.</li>
+          </ul>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-weight:600;font-size:14px;margin-bottom:6px">릴렉스 샷</div>
+          <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--body);line-height:1.8">
+            <li>긴장 완화하고 편안하게 만들어주는 음료입니다.</li>
+            <li>L-테아닌과 타우린으로 스트레스 완화와 안정감을 줍니다.</li>
+          </ul>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-weight:600;font-size:14px;margin-bottom:6px">아미노 샷</div>
+          <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--body);line-height:1.8">
+            <li>운동할 때 근육 회복과 퍼포먼스를 위한 음료입니다.</li>
+            <li>필수 아미노산이 들어 있어서 운동 효율과 회복에 좋습니다.</li>
+          </ul>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-weight:600;font-size:14px;margin-bottom:6px">레몬 수</div>
+          <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--body);line-height:1.8">
+            <li>1잔에 레몬 1개 분량이 사용된 100% 레몬즙 음료입니다.</li>
+            <li>가볍게 마시기 좋고, 부담 없이 데일리로 드실 수 있습니다.</li>
+          </ul>
+        </div>
+      </div>
       <div class="sub-label" style="margin-top:28px">디스펜서 조작 순서</div>
       <div class="steps">
         <div class="step"><div class="step-num">1</div><div class="step-text"><strong>시작하기</strong> 버튼 터치</div></div>
@@ -1062,7 +1107,7 @@ body.edit-mode .fab-actions{display:flex}
       <div class="section-hr"></div>
       <div class="sub-label">기본 행동 지침</div>
       <div class="rules-group" style="margin-bottom:32px">
-        <div class="rule-row"><div class="rule-icon ok">✓</div>유니폼 착용 + 명찰 패용 필수</div>
+        <div class="rule-row"><div class="rule-icon ok">✓</div>유니폼 착용 필수</div>
         <div class="rule-row"><div class="rule-icon ok">✓</div>고객 응대 시 밝은 표정과 적극적 태도 유지</div>
         <div class="rule-row"><div class="rule-icon ok">✓</div>음료 조작 전후 손 위생 관리</div>
         <div class="rule-row"><div class="rule-icon ok">✓</div>근무 중 개인 SNS 게시 금지 (허가된 콘텐츠 제외)</div>
@@ -1073,24 +1118,19 @@ body.edit-mode .fab-actions{display:flex}
       <div class="sub-label">긴급 연락처</div>
       <div class="contact-grid">
         <div class="contact-card">
-          <div class="contact-role">현장 매니저</div>
-          <div class="contact-name"><span class="placeholder">담당자명 확인 후 기입</span></div>
-          <div class="contact-num"><span class="placeholder">010-XXXX-XXXX</span></div>
+          <div class="contact-role">현장 담당자</div>
+          <div class="contact-name">백영웅 이사</div>
+          <div class="contact-num">010-4159-7267</div>
         </div>
         <div class="contact-card">
-          <div class="contact-role">본사 담당자</div>
-          <div class="contact-name"><span class="placeholder">담당자명 확인 후 기입</span></div>
-          <div class="contact-num"><span class="placeholder">010-XXXX-XXXX</span></div>
+          <div class="contact-role">현장 담당자</div>
+          <div class="contact-name">조민수 실장</div>
+          <div class="contact-num">010-4159-7267</div>
         </div>
         <div class="contact-card">
-          <div class="contact-role">응급/의료팀</div>
-          <div class="contact-name">코엑스 안내데스크</div>
-          <div class="contact-num"><span class="placeholder">내선 확인 후 기입</span></div>
-        </div>
-        <div class="contact-card">
-          <div class="contact-role">일반 응급</div>
-          <div class="contact-name">119 / 112</div>
-          <div class="contact-num">119 · 112</div>
+          <div class="contact-role">현장 담당자</div>
+          <div class="contact-name">김민우 디자이너</div>
+          <div class="contact-num">010-8075-6549</div>
         </div>
       </div>
     </section>
