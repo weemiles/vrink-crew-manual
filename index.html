@@ -1101,7 +1101,7 @@ body.edit-mode .fab-actions{display:flex}
 <div class="edit-fab">
   <div class="fab-actions" id="fabActions">
     <button class="fab-btn fab-reset" onclick="resetEdits()">↺ 초기화</button>
-    <button class="fab-btn fab-share" onclick="shareLink()">&#128279; 링크 공유</button>
+    <button class="fab-btn fab-share" onclick="saveEdits()">&#128190; 저장</button>
   </div>
   <button class="fab-btn fab-main" id="fabMain" onclick="toggleEditMode()">✎ 편집 모드</button>
 </div>
@@ -1266,7 +1266,7 @@ function saveLocal() {
   }
 }
 
-function shareLink() {
+function saveEdits() {
   saveLocal();
   const edits = collectEdits();
   if (!Object.keys(edits).length) {
@@ -1275,15 +1275,8 @@ function shareLink() {
   }
   const encoded = enc(edits);
   const url = location.origin + location.pathname + '?edits=' + encoded;
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(url).then(() => showToast('링크가 복사되었어요!'));
-  } else {
-    const ta = document.createElement('textarea');
-    ta.value = url; document.body.appendChild(ta);
-    ta.select(); document.execCommand('copy');
-    document.body.removeChild(ta);
-    showToast('링크가 복사되었어요!');
-  }
+  history.replaceState(null, '', url);
+  showToast('저장됐어요! 상단 주소창 링크로 공유하세요 🔗');
 }
 
 function resetEdits() {
